@@ -1,8 +1,12 @@
 import './css/canvas.scss';
-import * as t3 from 'three';
+import { PlatformEngine } from './_game/PlatformEngine';
+import { GameEditor } from './_game/editor/GameEditor';
 
-const scene: t3.Scene = new t3.Scene();
-
+/**
+ * Create the only instance of a canvas controller
+ */
+const engine = new PlatformEngine();
+const editor = new GameEditor(engine);
 
 /** time tracking variables */
 let previousTimeStamp: number;
@@ -21,9 +25,26 @@ function step(timestamp: number) {
   // if the frame tool longer than 20ms through it out
   if (elapsed < 50) {
     // update the scene
-    
+    engine.update(elapsed);
+    // update the editor
+    editor.update(elapsed);
   }
   // request a new frame
   previousTimeStamp = timestamp;
 }
 
+/**
+ * Start the engine then request and animation frame
+ */
+engine
+  .initialize(document.getElementById('game-container'))
+  .then(() => {
+    // initialize the editor
+    editor
+      .initialize(document.getElementById('editor-container'))
+      // then request the first animation frame
+      .then(() => window.requestAnimationFrame(step));
+  })
+  .catch((e) => {
+    console.error('Error initializing ', e);
+  });

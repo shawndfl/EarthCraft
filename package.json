@@ -37,9 +37,6 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "@types/three": "^0.162.0",
-    "cannon": "^0.6.2",
-    "fs": "^0.0.1-security",
-    "three": "^0.162.0"
+    "fs": "^0.0.1-security" 
   }
 }
