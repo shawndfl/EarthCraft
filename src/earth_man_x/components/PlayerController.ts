@@ -7,7 +7,7 @@ import { InputState } from '../../core/InputState';
 import { RidgeBody } from '../../physics/RidgeBody';
 import { Collision2D } from '../../physics/Collision2D';
 import { GameComponent } from './GameComponent';
-import { SpriteController2 } from '../../graphics/SpriteController2';
+import { SpriteController } from '../../graphics/SpriteController';
 import { IPlayerOptions } from '../../data/ILevelData';
 import {
   EntityStateController,
@@ -23,7 +23,7 @@ import { BulletController } from './BulletController';
 import { equals } from '../../math/constants';
 
 export class PlayerController extends GameComponent {
-  private sprite: SpriteController2;
+  private sprite: SpriteController;
 
   private entityState: EntityStateController;
   private entityStateOptions: EntityStateOptions;
@@ -46,7 +46,7 @@ export class PlayerController extends GameComponent {
 
   constructor(eng: PlatformEngine) {
     super(eng);
-    this.sprite = new SpriteController2(eng);
+    this.sprite = new SpriteController(eng);
 
     this.ridgeBody = new RidgeBody(
       this.eng,

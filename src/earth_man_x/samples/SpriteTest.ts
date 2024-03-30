@@ -1,13 +1,13 @@
 import { Component } from '../../components/Component';
-import { SpriteController2 } from '../../graphics/SpriteController2';
+import { SpriteController } from '../../graphics/SpriteController';
 import rect from '../../math/rect';
 import vec4 from '../../math/vec4';
 
 export class SpriteTest extends Component {
-  private sprite: SpriteController2;
+  private sprite: SpriteController;
 
   initialize() {
-    this.sprite = new SpriteController2(this.eng);
+    this.sprite = new SpriteController(this.eng);
 
     const sprite = this.eng.assetManager.getTexture('enemies');
     this.sprite.initialize(sprite.texture, sprite.data);

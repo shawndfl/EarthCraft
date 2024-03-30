@@ -1,5 +1,5 @@
 import { UserAction } from '../../core/UserAction';
-import { SpriteController2 } from '../../graphics/SpriteController2';
+import { SpriteController } from '../../graphics/SpriteController';
 import { SpriteInstanceCollection } from '../../graphics/SpriteInstanceCollection';
 import { SpriteInstanceController } from '../../graphics/SpriteInstanceController';
 import mat4 from '../../math/mat4';
@@ -16,8 +16,8 @@ import { TextureAssets } from '../system/GameAssetManager';
 export class ToggleButton extends GameComponent {
   //onSprite: SpriteInstanceController;
   //offSprite: SpriteInstanceController;
-  onSprite: SpriteController2;
-  offSprite: SpriteController2;
+  onSprite: SpriteController;
+  offSprite: SpriteController;
   private _isOn: boolean;
   private _id: string;
   private _userAction: UserAction;
@@ -50,7 +50,7 @@ export class ToggleButton extends GameComponent {
     this._userAction = userAction;
     this._actionOnDown = actionOnDown;
     const spriteAsset = this.eng.assetManager.getTexture(TextureAssets.hud);
-    this.onSprite = new SpriteController2(this.eng);
+    this.onSprite = new SpriteController(this.eng);
     this.onSprite.initialize(spriteAsset.texture, spriteAsset.data);
 
     //this.onSprite = new SpriteInstanceController(id + '.on', collection);
@@ -61,7 +61,7 @@ export class ToggleButton extends GameComponent {
     this.onSprite.yScale = 1;
 
     //this.offSprite = new SpriteInstanceController(id + '.off', collection);
-    this.offSprite = new SpriteController2(this.eng);
+    this.offSprite = new SpriteController(this.eng);
     this.offSprite.initialize(spriteAsset.texture, spriteAsset.data);
 
     this.offSprite.spriteImage(id + '.off');

@@ -1,7 +1,7 @@
 import { IImageTiles } from '../data/ILevelData';
 import { Engine } from '../core/Engine';
 import { SpriteData } from '../graphics/ISpriteData';
-import { SpriteController2 } from '../graphics/SpriteController2';
+import { SpriteController } from '../graphics/SpriteController';
 import { Texture } from '../graphics/Texture';
 import { Component } from './Component';
 
@@ -10,7 +10,7 @@ import { Component } from './Component';
  */
 export class TileBgComponent extends Component {
   texture: Texture;
-  sprite: SpriteController2;
+  sprite: SpriteController;
 
   public get id(): string {
     return this._id;
@@ -18,7 +18,7 @@ export class TileBgComponent extends Component {
 
   constructor(eng: Engine, private _id: string) {
     super(eng);
-    this.sprite = new SpriteController2(this.eng);
+    this.sprite = new SpriteController(this.eng);
   }
 
   async initialize(
