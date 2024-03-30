@@ -1,5 +1,4 @@
-import { Engine } from '../../core/Engine';
-import { SpriteController2 } from '../../graphics/SpriteController2';
+import { IEntity } from '../../data/ILevelData';
 import vec2 from '../../math/vec2';
 import vec4 from '../../math/vec4';
 import { PlatformEngine } from '../PlatformEngine';
@@ -8,8 +7,6 @@ import {
   EnemyControllerOptions,
 } from '../components/EnemyController';
 import { GameComponent } from '../components/GameComponent';
-import { ICollision, IEntity } from '../data/ILevelData';
-import { ICollisionBoxOptions } from './CollisionBox';
 
 export class EntityFactory {
   static create(eng: PlatformEngine, args: IEntity): GameComponent {

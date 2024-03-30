@@ -74,6 +74,7 @@ export abstract class Engine {
 
   constructor() {
     const queryString = window.location.search;
+
     this.urlParams = new URLSearchParams(queryString);
     this.isActive = true;
 
@@ -89,10 +90,16 @@ export abstract class Engine {
     this.textManager = new TextManager(this);
     this.fps = new FpsController(this);
     this.assetManager = this.createAssetManager();
-    this.spritePerspectiveShader = new SpritePerspectiveShader(this.gl, 'spritePerspectiveShader');
+    this.spritePerspectiveShader = new SpritePerspectiveShader(
+      this.gl,
+      'spritePerspectiveShader'
+    );
 
     this.spriteShader = new SpriteShader(this.gl, 'spriteShader');
-    this.spriteInstanceShader = new SpriteInstanceShader(this.gl, 'spriteInstanceShader');
+    this.spriteInstanceShader = new SpriteInstanceShader(
+      this.gl,
+      'spriteInstanceShader'
+    );
 
     this.sceneManager = this.createSceneManager();
     this.particleManager = new ParticleManager(this);
@@ -159,7 +166,10 @@ export abstract class Engine {
   }
 
   handleUserAction(state: InputState): boolean {
-    return this.dialogManager.handleUserAction(state) || this.sceneManager.scene.handleUserAction(state);
+    return (
+      this.dialogManager.handleUserAction(state) ||
+      this.sceneManager.scene.handleUserAction(state)
+    );
   }
 
   gameUpdate(dt: number) {

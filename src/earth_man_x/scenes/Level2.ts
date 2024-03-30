@@ -2,7 +2,7 @@ import { SceneComponent } from '../../components/SceneComponent';
 import { PlatformEngine } from '../PlatformEngine';
 
 import { InputState } from '../../core/InputState';
-import { LevelData } from '../data/ILevelData';
+import { LevelData } from '../../data/ILevelData';
 import { ParticleTest } from '../samples/ParticleTest';
 import { Collision2D } from '../../physics/Collision2D';
 
@@ -109,7 +109,9 @@ export class Level2 extends SceneComponent {
     }
     // load the remotely
     else {
-      const results = await this.eng.remote.loadFile('assets/' + this._type + '/level.json');
+      const results = await this.eng.remote.loadFile(
+        'assets/' + this._type + '/level.json'
+      );
       const dataJson = JSON.parse(results);
       data = new LevelData(dataJson);
     }

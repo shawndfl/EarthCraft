@@ -1,9 +1,8 @@
-import { IImageTiles } from '../_game/data/ILevelData';
+import { IImageTiles } from '../data/ILevelData';
 import { Engine } from '../core/Engine';
-import { DefaultSpriteData, SpriteData } from '../graphics/ISpriteData';
+import { SpriteData } from '../graphics/ISpriteData';
 import { SpriteController2 } from '../graphics/SpriteController2';
 import { Texture } from '../graphics/Texture';
-import vec2 from '../math/vec2';
 import { Component } from './Component';
 
 /**
@@ -22,7 +21,11 @@ export class TileBgComponent extends Component {
     this.sprite = new SpriteController2(this.eng);
   }
 
-  async initialize(texture: Texture, spriteData: SpriteData, options: IImageTiles): Promise<void> {
+  async initialize(
+    texture: Texture,
+    spriteData: SpriteData,
+    options: IImageTiles
+  ): Promise<void> {
     this.texture = texture;
 
     this.sprite.initialize(this.texture, spriteData);

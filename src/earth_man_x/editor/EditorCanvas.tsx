@@ -6,7 +6,7 @@ import {
   DefaultLevelWidth,
   ICollision,
   LevelData,
-} from '../data/ILevelData';
+} from '../../data/ILevelData';
 import vec2 from '../../math/vec2';
 import rect from '../../math/rect';
 

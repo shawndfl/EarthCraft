@@ -5,7 +5,6 @@ import { PlayButton } from './PlayButton';
 import '../../css/editor.scss';
 
 import REACT from 'jsx-dom';
-import { LevelData } from '../data/ILevelData';
 import { GameComponent } from '../components/GameComponent';
 
 export class GameEditor extends GameComponent {

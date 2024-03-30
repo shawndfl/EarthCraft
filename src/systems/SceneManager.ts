@@ -2,6 +2,7 @@ import { SceneComponent } from '../components/SceneComponent';
 import { ISceneFactory } from '../interfaces/ISceneFactory';
 import { Engine } from '../core/Engine';
 import { Component } from '../components/Component';
+import { LevelData } from '../data/ILevelData';
 
 /**
  * Manages scene loading and switching.
@@ -29,7 +30,7 @@ export class SceneManager extends Component {
     return this._sceneType;
   }
 
-  get sceneData(): any {
+  get sceneData(): LevelData {
     return this._activeScene?.sceneData;
   }
 

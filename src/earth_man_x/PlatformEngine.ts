@@ -3,8 +3,6 @@ import { InputState } from '../core/InputState';
 import { AssetManager } from '../systems/AssetManager';
 import { SceneManager } from '../systems/SceneManager';
 import { PlayerController } from './components/PlayerController';
-import { LevelData } from './data/ILevelData';
-import { GameEditor } from './editor/GameEditor';
 import { SceneFactory } from './scenes/SceneFactory';
 import { BulletManager } from './system/BulletManager';
 import { EnemyManager } from './system/EnemyManager';
@@ -44,7 +42,9 @@ export class PlatformEngine extends Engine {
     await this.bullets.initialize();
 
     // load the first scene
-    await this.sceneManager.changeScene(this.urlParams.get('level') ?? 'level2');
+    await this.sceneManager.changeScene(
+      this.urlParams.get('level') ?? 'level2'
+    );
   }
 
   handleUserAction(state: InputState): boolean {

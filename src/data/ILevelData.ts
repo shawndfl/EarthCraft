@@ -1,5 +1,5 @@
-import rect from '../../math/rect';
-import vec2 from '../../math/vec2';
+import rect from '../math/rect';
+import vec2 from '../math/vec2';
 
 /**
  * This is the raw level data from json

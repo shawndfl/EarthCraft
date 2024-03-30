@@ -1,5 +1,4 @@
-import rect from '../../math/rect';
-import { ICollision } from '../data/ILevelData';
+import { ICollision } from '../../data/ILevelData';
 import { EditorComponent } from './EditorComponent';
 import { GameEditor } from './GameEditor';
 

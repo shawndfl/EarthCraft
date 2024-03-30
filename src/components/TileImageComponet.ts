@@ -1,4 +1,4 @@
-import { IImageTiles } from '../_game/data/ILevelData';
+import { IImageTiles } from '../data/ILevelData';
 import { Engine } from '../core/Engine';
 import { ISprite } from '../graphics/ISprite';
 import { Component } from './Component';

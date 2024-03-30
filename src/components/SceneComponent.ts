@@ -1,6 +1,7 @@
 import { InputState } from '../core/InputState';
 import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
+import { LevelData } from '../data/ILevelData';
 
 /**
  * This is a base class for a scene
@@ -9,7 +10,7 @@ export abstract class SceneComponent extends Component {
   /**
    * Gets custom scene data
    */
-  abstract get sceneData(): any;
+  abstract get sceneData(): LevelData;
 
   /**
    * constructor

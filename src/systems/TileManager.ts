@@ -1,4 +1,4 @@
-import { IImageTiles } from '../_game/data/ILevelData';
+import { IImageTiles } from '../data/ILevelData';
 import { Component } from '../components/Component';
 import { TileImageComponent } from '../components/TileImageComponet';
 import { Engine } from '../core/Engine';
@@ -26,7 +26,9 @@ export class TileManager extends Component {
   async loadTexture(tileSheetUrl: string): Promise<void> {
     // get the tile texture
     await this.tileTexture.loadImage(tileSheetUrl + '.png');
-    const spriteDataString = await this.eng.remote.loadFile(tileSheetUrl + '.json');
+    const spriteDataString = await this.eng.remote.loadFile(
+      tileSheetUrl + '.json'
+    );
     if (!spriteDataString) {
       console.error('cannot find ' + tileSheetUrl + '.json');
       return;

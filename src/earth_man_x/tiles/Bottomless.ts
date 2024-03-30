@@ -7,7 +7,7 @@ import { PlatformEngine } from '../PlatformEngine';
 import { EnemyController } from '../components/EnemyController';
 import { PlayerController } from '../components/PlayerController';
 
-import { ICollision } from '../data/ILevelData';
+import { ICollision } from '../../data/ILevelData';
 import { CollisionBox, ICollisionBoxOptions } from './CollisionBox';
 
 export interface IBottomlessOptions extends ICollisionBoxOptions {}
@@ -16,7 +16,10 @@ export interface IBottomlessOptions extends ICollisionBoxOptions {}
  * This is an elevator that can move up and down and side to side
  */
 export class Bottomless extends CollisionBox {
-  constructor(eng: PlatformEngine, public options: Readonly<IBottomlessOptions>) {
+  constructor(
+    eng: PlatformEngine,
+    public options: Readonly<IBottomlessOptions>
+  ) {
     super(eng, options);
   }
 

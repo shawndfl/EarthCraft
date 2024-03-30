@@ -1,4 +1,3 @@
-import { Direction } from '../_game/components/Direction';
 import vec2 from '../math/vec2';
 import vec4 from '../math/vec4';
 

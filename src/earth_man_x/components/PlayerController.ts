@@ -8,8 +8,12 @@ import { RidgeBody } from '../../physics/RidgeBody';
 import { Collision2D } from '../../physics/Collision2D';
 import { GameComponent } from './GameComponent';
 import { SpriteController2 } from '../../graphics/SpriteController2';
-import { IPlayerOptions } from '../data/ILevelData';
-import { EntityStateController, EntityStateFlags, EntityStateOptions } from '../data/EntityStateController';
+import { IPlayerOptions } from '../../data/ILevelData';
+import {
+  EntityStateController,
+  EntityStateFlags,
+  EntityStateOptions,
+} from '../data/EntityStateController';
 import { SpriteFlip } from '../../graphics/ISprite';
 import { CollisionType } from '../data/CollisionTypes';
 import { EnemyController } from './EnemyController';
@@ -44,8 +48,14 @@ export class PlayerController extends GameComponent {
     super(eng);
     this.sprite = new SpriteController2(eng);
 
-    this.ridgeBody = new RidgeBody(this.eng, 'player', this, new rect([0, 64, 0, 64]));
-    this.ridgeBody.collideMask = CollisionType.enemy | CollisionType.enemyBullet | CollisionType.default;
+    this.ridgeBody = new RidgeBody(
+      this.eng,
+      'player',
+      this,
+      new rect([0, 64, 0, 64])
+    );
+    this.ridgeBody.collideMask =
+      CollisionType.enemy | CollisionType.enemyBullet | CollisionType.default;
     this.ridgeBody.collisionType = CollisionType.player;
 
     this.ridgeBody.onPosition = this.updateFromRidgeBodyPosition.bind(this);
@@ -72,7 +82,12 @@ export class PlayerController extends GameComponent {
     this.ridgeBody.reset();
     // initial the player's position
     // and collision box size
-    this.ridgeBody.set(0, this.sprite.width, 0 + this.sprite.height, this.sprite.height);
+    this.ridgeBody.set(
+      0,
+      this.sprite.width,
+      0 + this.sprite.height,
+      this.sprite.height
+    );
 
     // add the ridge body back in
     this.eng.physicsManager.addBody(this.ridgeBody);
@@ -89,7 +104,11 @@ export class PlayerController extends GameComponent {
     this.entityStateOptions.facingDirection = Direction.Right;
     this.entityStateOptions.type = 'player';
 
-    this.entityState.initialize(this.sprite, this.ridgeBody, this.entityStateOptions);
+    this.entityState.initialize(
+      this.sprite,
+      this.ridgeBody,
+      this.entityStateOptions
+    );
   }
 
   initialize(): void {
@@ -109,7 +128,12 @@ export class PlayerController extends GameComponent {
 
     // initial the player's position
     // and collision box size
-    this.ridgeBody.set(100, this.sprite.width, 150 + this.sprite.height, this.sprite.height);
+    this.ridgeBody.set(
+      100,
+      this.sprite.width,
+      150 + this.sprite.height,
+      this.sprite.height
+    );
     this.ridgeBody.active = true;
 
     this._touchingGround = false;
@@ -212,7 +236,10 @@ export class PlayerController extends GameComponent {
       }
     }
 
-    if (!this._touchingGround && (this._collidingLeft || this._collidingRight)) {
+    if (
+      !this._touchingGround &&
+      (this._collidingLeft || this._collidingRight)
+    ) {
       this.entityState.slidingDown(this._collidingRight);
     } else if (this._touchingGround) {
       this.entityState.landed();
@@ -227,7 +254,12 @@ export class PlayerController extends GameComponent {
    * @param top
    */
   setPosition(left: number, top: number): void {
-    this.ridgeBody.set(left, this.sprite.width, top + this.sprite.height, this.sprite.height);
+    this.ridgeBody.set(
+      left,
+      this.sprite.width,
+      top + this.sprite.height,
+      this.sprite.height
+    );
     this.updateFromRidgeBodyPosition(left, top, this.ridgeBody);
   }
 
@@ -236,7 +268,11 @@ export class PlayerController extends GameComponent {
    * This will check for collisions and adjust the position
    * @param position
    */
-  private updateFromRidgeBodyPosition(left: number, top: number, body: Collision2D): void {
+  private updateFromRidgeBodyPosition(
+    left: number,
+    top: number,
+    body: Collision2D
+  ): void {
     // update the screen position.
     this.sprite.left = left; // + this.sprite.width * 0.5;
     this.sprite.top = top; // - this.sprite.height * 0.5;

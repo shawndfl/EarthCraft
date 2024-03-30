@@ -1,15 +1,13 @@
-import { PlatformEngine } from '../_game/PlatformEngine';
 import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
 import { SpriteInstanceCollection } from '../graphics/SpriteInstanceCollection';
 import { SpriteInstanceController } from '../graphics/SpriteInstanceController';
 import { toRadian } from '../math/constants';
-import rect from '../math/rect';
+
 import vec2 from '../math/vec2';
 import vec3 from '../math/vec3';
 import vec4 from '../math/vec4';
 import { RidgeBody } from '../physics/RidgeBody';
-import { MetersToPixels, PixelsToMeters } from '../systems/PhysicsManager';
 
 export interface ParticleCreationArgs {
   positionMin: vec2;
