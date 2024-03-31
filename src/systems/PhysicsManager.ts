@@ -9,6 +9,7 @@ import {
   QuadTreeAnalytics,
 } from '../physics/QuadTree';
 import { RidgeBody } from '../physics/RidgeBody';
+import { SystemComponent } from './SystemComponent';
 
 /**
  * How many pixels in a meter
@@ -19,7 +20,7 @@ export const PixelsToMeters = 1 / MetersToPixels;
 /**
  * Holds forces
  */
-export class PhysicsManager extends Component {
+export class PhysicsManager extends SystemComponent {
   public gravity: vec3;
   public wind: vec3;
   public quadTree: QuadTree;

@@ -1,16 +1,16 @@
 import { IImageTiles } from '../data/ILevelData';
-import { Component } from '../components/Component';
 import { TileImageComponent } from '../components/TileImageComponet';
 import { Engine } from '../core/Engine';
 import { SpriteData } from '../graphics/ISpriteData';
 import { SpriteInstanceCollection } from '../graphics/SpriteInstanceCollection';
 import { SpriteInstanceController } from '../graphics/SpriteInstanceController';
 import { Texture } from '../graphics/Texture';
+import { SystemComponent } from './SystemComponent';
 
 /**
  * Manages different backgrounds and foregrounds in a level
  */
-export class TileManager extends Component {
+export class TileManager extends SystemComponent {
   private tiles: TileImageComponent[] = [];
 
   protected spriteCollections: SpriteInstanceCollection;
@@ -53,6 +53,11 @@ export class TileManager extends Component {
   update(dt: number) {
     this.tiles.forEach((t) => t.update(dt));
     this.spriteCollections.update(dt);
+  }
+
+  reset(): void {
+    this.tiles.forEach((t) => t.dispose());
+    this.tiles = [];
   }
 
   dispose(): void {

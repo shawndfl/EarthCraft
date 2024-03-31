@@ -136,7 +136,9 @@ export class Level2 extends SceneComponent {
     this.updatableCollisions.forEach((c) => c.update(dt));
   }
 
-  postUpdate(dt: number): void {
+  draw(dt: number): void {}
+
+  postDraw(dt: number): void {
     this.inputHud.update(dt);
   }
 

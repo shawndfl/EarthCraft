@@ -5,7 +5,6 @@ import { SpriteInstanceController } from '../../graphics/SpriteInstanceControlle
 import vec3 from '../../math/vec3';
 import { Collision2D } from '../../physics/Collision2D';
 import { RidgeBody } from '../../physics/RidgeBody';
-import { MetersToPixels } from '../../systems/PhysicsManager';
 import { PlatformEngine } from '../PlatformEngine';
 import { CollisionType } from '../data/CollisionTypes';
 import { BulletOptions } from '../system/BulletManager';

@@ -5,6 +5,7 @@ import { ShaderController } from '../graphics/ShaderController';
 import { Texture } from '../graphics/Texture';
 import { Engine } from '../core/Engine';
 import { Component } from '../components/Component';
+import { SystemComponent } from './SystemComponent';
 
 /**
  * Vertex shader for Font
@@ -43,7 +44,7 @@ const FontFS = `
 /**
  * Font manager keeps track of all FontController objects
  */
-export class TextManager extends Component {
+export class TextManager extends SystemComponent {
   texts: Map<string, TextController>;
   fontData: IFontData[];
   private maxHeightOfCharacters: number;
@@ -172,9 +173,11 @@ export class TextManager extends Component {
 
     controller.initialize(textModel, this.maxHeightOfCharacters);
   }
-
+  reset(): void {
+    this.texts.clear();
+  }
   /**
    * clean up everything
    */
-  dispose() { }
+  dispose() {}
 }

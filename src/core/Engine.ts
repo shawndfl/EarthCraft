@@ -87,7 +87,7 @@ export abstract class Engine {
     this.remote = new ResourceLoader();
     this.input = new InputHandler(this);
     this.dialogManager = new DialogManager(this);
-    this.soundManager = new SoundManager();
+    this.soundManager = new SoundManager(this);
     this.viewManager = new ViewManager(this);
     this.textManager = new TextManager(this);
     this.fps = new FpsController(this);
@@ -174,22 +174,6 @@ export abstract class Engine {
     );
   }
 
-  preDraw(dt: number): void {}
-
-  draw(dt: number): void {}
-
-  postDraw(dt: number): void {}
-
-  gameUpdate(dt: number) {
-    this.physicsManager.update(dt);
-    this.sceneManager.update(dt);
-    this.particleManager.update(dt);
-    this.dialogManager.update(dt);
-    this.textManager.update(dt);
-    this.annotationManager.update(dt);
-    this.tileManager.update(dt);
-  }
-
   update(dt: number): void {
     // if this is not active skip update
     if (!this.isActive) {
@@ -215,8 +199,21 @@ export abstract class Engine {
 
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-    this.gameUpdate(dt);
+    this.draw(dt);
+    this.postDraw(dt);
+  }
 
+  draw(dt: number): void {
+    this.physicsManager.update(dt);
+    this.sceneManager.update(dt);
+    this.particleManager.update(dt);
+    this.dialogManager.update(dt);
+    this.textManager.update(dt);
+    this.annotationManager.update(dt);
+    this.tileManager.update(dt);
+  }
+
+  postDraw(dt: number): void {
     this.input.postUpdate(dt);
   }
 

@@ -7,6 +7,7 @@ import { toDegrees, toRadian } from '../math/constants';
 import rect from '../math/rect';
 import vec2 from '../math/vec2';
 import vec4 from '../math/vec4';
+import { SystemComponent } from './SystemComponent';
 
 export interface LineArgs {
   id?: string;
@@ -20,7 +21,7 @@ export interface LineArgs {
   endArrow?: boolean;
 }
 
-export class AnnotationManager extends Component {
+export class AnnotationManager extends SystemComponent {
   private _lineSprites: SpriteInstanceCollection;
 
   constructor(eng: Engine) {

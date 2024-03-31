@@ -55,7 +55,7 @@ export class PlatformEngine extends Engine {
     );
   }
 
-  gameUpdate(dt: number): void {
+  draw(dt: number): void {
     if (this.sceneManager.sceneReady) {
       this.sceneManager.update(dt);
 
@@ -70,9 +70,13 @@ export class PlatformEngine extends Engine {
       this.dialogManager.update(dt);
       this.textManager.update(dt);
       this.annotationManager.update(dt);
-
-      this.sceneManager.postUpdate(dt);
     }
+  }
+
+  postDraw(dt: number): void {
+    this.sceneManager.postDraw(dt);
+
+    super.postDraw(dt);
   }
 
   // Used for isolated feature debugger

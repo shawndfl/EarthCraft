@@ -7,11 +7,12 @@ import { GameMenuComponent } from '../menus/GameMenuComponent';
 import { DialogBuilder } from '../menus/DialogBuilder';
 import { GameMenuBuilder } from '../menus/GameMenuBuilder';
 import { SpriteInstanceCollection } from '../graphics/SpriteInstanceCollection';
+import { SystemComponent } from './SystemComponent';
 
 /**
  * Manages dialog boxes
  */
-export class DialogManager extends Component {
+export class DialogManager extends SystemComponent {
   protected _spriteBatch: SpritBatchController;
   protected _dialog: DialogComponent;
   protected _gameMenu: GameMenuComponent;
@@ -92,6 +93,11 @@ export class DialogManager extends Component {
   showGameMenu(onHide?: (dialog: GameMenuComponent) => boolean) {
     this._gameMenu.onHide = onHide;
     this._gameMenu.show();
+  }
+
+  reset(): void {
+    this._dialog.hide();
+    this._gameMenu.hide();
   }
 
   /**

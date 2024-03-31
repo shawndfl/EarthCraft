@@ -1,13 +1,13 @@
 import { SceneComponent } from '../components/SceneComponent';
 import { ISceneFactory } from '../interfaces/ISceneFactory';
 import { Engine } from '../core/Engine';
-import { Component } from '../components/Component';
 import { LevelData } from '../data/ILevelData';
+import { SystemComponent } from './SystemComponent';
 
 /**
  * Manages scene loading and switching.
  */
-export class SceneManager extends Component {
+export class SceneManager extends SystemComponent {
   private _activeScene: SceneComponent;
   private _nextSceneType: string;
   private _sceneType: string;
@@ -45,7 +45,7 @@ export class SceneManager extends Component {
   /**
    * resets the scene by  disposing it and reinitializing it.
    */
-  resetScene(): void {
+  reset(): void {
     this.setNextScene(this._sceneType);
   }
 
@@ -116,8 +116,12 @@ export class SceneManager extends Component {
     }
   }
 
-  postUpdate(dt: number): void {
-    this._activeScene.postUpdate(dt);
+  draw(dt: number): void {
+    this._activeScene.draw(dt);
+  }
+
+  postDraw(dt: number): void {
+    this._activeScene.postDraw(dt);
   }
 
   /**

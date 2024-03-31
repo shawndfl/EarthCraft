@@ -288,7 +288,7 @@ export class PlayerController extends GameComponent {
 
   hitByDeath(other: Collision2D): void {
     this.entityState.die(() => {
-      this.eng.sceneManager.resetScene();
+      this.eng.sceneManager.reset();
     });
   }
 

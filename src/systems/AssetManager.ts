@@ -7,6 +7,7 @@ import MenuData from '../assets/menu.json';
 import { Texture } from '../graphics/Texture';
 import { IFontData } from '../graphics/IFontData';
 import { ISpriteData, SpriteData, TileData } from '../graphics/ISpriteData';
+import { SystemComponent } from './SystemComponent';
 
 export class BuiltInTextureAssets {
   static readonly menu: string = 'menu';
@@ -21,7 +22,7 @@ export interface ITextureAsset {
  * Manages texture assets. This only has two that it manages. One is the font
  * the other is the menu.
  */
-export class AssetManager extends Component {
+export class AssetManager extends SystemComponent {
   protected _font: Texture;
   protected textures: Map<string, ITextureAsset>;
 
@@ -79,5 +80,9 @@ export class AssetManager extends Component {
     // store the texture
     this.textures.set(id, { texture, data: new SpriteData(data) });
     return texture;
+  }
+
+  reset(): void {
+    //NOP
   }
 }

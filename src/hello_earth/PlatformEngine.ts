@@ -33,21 +33,24 @@ export class HelloEngine extends Engine {
     return false;
   }
 
-  gameUpdate(dt: number): void {
+  draw(dt: number): void {
     if (this.sceneManager.sceneReady) {
       this.sceneManager.update(dt);
 
       this.physicsManager.update(dt);
 
       this.tileManager.update(dt);
-
       this.particleManager.update(dt);
       this.dialogManager.update(dt);
       this.textManager.update(dt);
       this.annotationManager.update(dt);
-
-      this.sceneManager.postUpdate(dt);
     }
+  }
+
+  postDraw(dt: number): void {
+    this.sceneManager.postDraw(dt);
+
+    super.postDraw(dt);
   }
 
   // Used for isolated feature debugger

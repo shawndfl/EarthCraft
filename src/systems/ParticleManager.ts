@@ -1,11 +1,9 @@
 import { Emitter, EmitterArgs } from '../particle/Emitter';
 import { Engine } from '../core/Engine';
-import { Component } from '../components/Component';
 import { SpriteInstanceShader } from '../shaders/SpriteInstanceShader';
-import { Texture } from '../graphics/Texture';
-import { ITextureAsset } from './AssetManager';
+import { SystemComponent } from './SystemComponent';
 
-export class ParticleManager extends Component {
+export class ParticleManager extends SystemComponent {
   private _shader: SpriteInstanceShader;
 
   emitter: Map<string, Emitter>;
@@ -48,6 +46,10 @@ export class ParticleManager extends Component {
   }
 
   initialize(): void {}
+
+  reset(): void {
+    this.emitter.clear();
+  }
 
   update(dt: number): void {
     this.emitter.forEach((e) => e.update(dt));

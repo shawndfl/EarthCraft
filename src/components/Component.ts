@@ -56,6 +56,10 @@ export abstract class Component {
    */
   postDraw(dt: number): void {}
 
+  /**
+   * Save the component
+   * @returns
+   */
   serialize(): any {
     return {
       id: this.id,
@@ -63,7 +67,16 @@ export abstract class Component {
     };
   }
 
+  /**
+   * Load the component
+   * @param data
+   */
   deserialize(data: any): void {
     this._id = data.id;
   }
+
+  /**
+   * Clean up the component
+   */
+  dispose(): void {}
 }

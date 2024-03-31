@@ -39,7 +39,13 @@ export abstract class SceneComponent extends Component {
    * Call after other systems were updated
    * @param dt
    */
-  abstract postUpdate(dt: number): void;
+  abstract draw(dt: number): void;
+
+  /**
+   * Called after draw
+   * @param dt
+   */
+  abstract postDraw(dt: number): void;
 
   /**
    * Show scene is called when a SceneManager changes to a new scene.
