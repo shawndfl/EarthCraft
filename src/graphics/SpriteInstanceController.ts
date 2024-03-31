@@ -22,15 +22,11 @@ export class SpriteInstanceController extends Component implements ISprite {
     rotScale: new mat2(),
     translation: new vec3(),
   };
-  private _id: string;
+
   protected _angle: number = 0;
   protected _scale: vec2 = new vec2(1, 1);
   protected _flip: SpriteFlip;
   protected _loc: [number, number, number, number] = [0, 0, 0, 0];
-
-  get id(): string {
-    return this._id;
-  }
 
   set left(value: number) {
     this._quad.translation.x = value;
@@ -55,7 +51,12 @@ export class SpriteInstanceController extends Component implements ISprite {
     if (data) {
       this.spriteLocation(data.loc);
     } else {
-      console.error('Cannot find sprite ' + name + ' in texture ' + this._collection.spriteTexture.id);
+      console.error(
+        'Cannot find sprite ' +
+          name +
+          ' in texture ' +
+          this._collection.spriteTexture.id
+      );
     }
   }
 
@@ -68,7 +69,12 @@ export class SpriteInstanceController extends Component implements ISprite {
     this._loc[1] = loc[1];
     this._loc[2] = loc[2];
     this._loc[3] = loc[3];
-    this._collection.pixelsToUv(this._loc, this._flip, this._quad.minTex, this._quad.maxTex);
+    this._collection.pixelsToUv(
+      this._loc,
+      this._flip,
+      this._quad.minTex,
+      this._quad.maxTex
+    );
     this.updateCollection();
   }
 
@@ -147,7 +153,12 @@ export class SpriteInstanceController extends Component implements ISprite {
   }
   set flipDirection(flip: SpriteFlip) {
     this._flip = flip;
-    this._collection.pixelsToUv(this._loc, this._flip, this._quad.minTex, this._quad.maxTex);
+    this._collection.pixelsToUv(
+      this._loc,
+      this._flip,
+      this._quad.minTex,
+      this._quad.maxTex
+    );
     this.updateCollection();
   }
 
@@ -166,7 +177,11 @@ export class SpriteInstanceController extends Component implements ISprite {
     }
   }
 
-  constructor(id: string, protected _collection: SpriteInstanceCollection, quad?: IQuadModel) {
+  constructor(
+    id: string,
+    protected _collection: SpriteInstanceCollection,
+    quad?: IQuadModel
+  ) {
     super(_collection.eng);
 
     if (quad) {

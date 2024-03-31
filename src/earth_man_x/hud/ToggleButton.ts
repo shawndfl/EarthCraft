@@ -19,13 +19,8 @@ export class ToggleButton extends GameComponent {
   onSprite: SpriteController;
   offSprite: SpriteController;
   private _isOn: boolean;
-  private _id: string;
   private _userAction: UserAction;
   private _actionOnDown: boolean;
-
-  get id(): string {
-    return this._id;
-  }
 
   get isOn(): boolean {
     return this._isOn;

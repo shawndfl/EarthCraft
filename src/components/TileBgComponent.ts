@@ -12,12 +12,8 @@ export class TileBgComponent extends Component {
   texture: Texture;
   sprite: SpriteController;
 
-  public get id(): string {
-    return this._id;
-  }
-
-  constructor(eng: Engine, private _id: string) {
-    super(eng);
+  constructor(eng: Engine, id: string) {
+    super(eng, id);
     this.sprite = new SpriteController(this.eng);
   }
 

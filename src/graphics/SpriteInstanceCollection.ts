@@ -2,11 +2,8 @@ import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
 import { GlBufferQuadInstance } from '../geometry/GlBufferQuadInstance';
 import { IQuadModel } from '../geometry/IQuadMode';
-import { toRadian } from '../math/constants';
-import mat2 from '../math/mat2';
 import mat4 from '../math/mat4';
 import vec2 from '../math/vec2';
-import vec3 from '../math/vec3';
 import vec4 from '../math/vec4';
 import { SpriteInstanceShader } from '../shaders/SpriteInstanceShader';
 import { SpriteFlip } from './ISprite';
@@ -69,7 +66,9 @@ export class SpriteInstanceCollection extends Component {
   public getLoc(id: string): [number, number, number, number] {
     const data = this._spriteData.tiles.get(id);
     if (!data) {
-      console.debug('cannot find sprite ' + id + ' in texture ' + this._spriteTexture.id);
+      console.debug(
+        'cannot find sprite ' + id + ' in texture ' + this._spriteTexture.id
+      );
       return [0, 0, 32, 32];
     }
     return data.loc;
@@ -150,7 +149,12 @@ export class SpriteInstanceCollection extends Component {
     this.dirty = false;
   }
 
-  pixelsToUv(loc: [number, number, number, number], flip: SpriteFlip, resultsMin: vec2, resultsMax: vec2): void {
+  pixelsToUv(
+    loc: [number, number, number, number],
+    flip: SpriteFlip,
+    resultsMin: vec2,
+    resultsMax: vec2
+  ): void {
     const sheetW = this._spriteTexture.width;
     const sheetH = this._spriteTexture.height;
 
@@ -216,6 +220,12 @@ export class SpriteInstanceCollection extends Component {
     }
     const type = this.gl.UNSIGNED_SHORT;
 
-    this.gl.drawElementsInstanced(this.gl.TRIANGLES, this.buffer.indexCount, type, 0, this.buffer.instanceCount);
+    this.gl.drawElementsInstanced(
+      this.gl.TRIANGLES,
+      this.buffer.indexCount,
+      type,
+      0,
+      this.buffer.instanceCount
+    );
   }
 }

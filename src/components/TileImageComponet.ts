@@ -4,17 +4,13 @@ import { ISprite } from '../graphics/ISprite';
 import { Component } from './Component';
 
 /**
- * This is a simple background image that scrolls behind the level
+ * This is a simple tile image that is placed on the screen
  */
 export class TileImageComponent extends Component {
   private sprite: ISprite;
 
-  public get id(): string {
-    return this._id;
-  }
-
-  constructor(eng: Engine, private _id: string) {
-    super(eng);
+  constructor(eng: Engine, id: string) {
+    super(eng, id);
   }
 
   async initialize(sprite: ISprite, options: IImageTiles): Promise<void> {
@@ -33,6 +29,10 @@ export class TileImageComponent extends Component {
   }
 
   update(dt: number) {}
+
+  draw(dt: number): void {}
+
+  postDraw(dt: number): void {}
 
   dispose(): void {
     this.sprite.visible = false;

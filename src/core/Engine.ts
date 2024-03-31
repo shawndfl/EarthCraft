@@ -78,9 +78,11 @@ export abstract class Engine {
     this.urlParams = new URLSearchParams(queryString);
     this.isActive = true;
 
+    // need this to create uuids too
+    this.random = new Random(1001);
+
     // create the canvas with the gl context so everything downstream can now use it
     this.canvasController = new CanvasController(this);
-    this.random = new Random(1001);
     this.gameManager = new GameManager(this);
     this.remote = new ResourceLoader();
     this.input = new InputHandler(this);
@@ -171,6 +173,12 @@ export abstract class Engine {
       this.sceneManager.scene.handleUserAction(state)
     );
   }
+
+  preDraw(dt: number): void {}
+
+  draw(dt: number): void {}
+
+  postDraw(dt: number): void {}
 
   gameUpdate(dt: number) {
     this.physicsManager.update(dt);

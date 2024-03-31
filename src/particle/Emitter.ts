@@ -1,7 +1,6 @@
 import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
 import { SpriteInstanceCollection } from '../graphics/SpriteInstanceCollection';
-import { Texture } from '../graphics/Texture';
 import vec2 from '../math/vec2';
 import { SpriteInstanceShader } from '../shaders/SpriteInstanceShader';
 import { ITextureAsset } from '../systems/AssetManager';
@@ -27,7 +26,7 @@ export class Emitter extends Component {
   private _running: boolean;
   private _creationDelay: number;
   private _creationTimer: number;
-  private _id: string;
+
   protected _textureAsset: ITextureAsset;
 
   /** emitter's position in pixels */
@@ -35,10 +34,6 @@ export class Emitter extends Component {
 
   /** the number of particles that are emitted */
   maxParticles: number = 20;
-
-  get id(): string {
-    return this._id;
-  }
 
   get shader(): SpriteInstanceShader {
     return this.eng.particleManager.shader;

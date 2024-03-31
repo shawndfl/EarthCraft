@@ -38,7 +38,7 @@ export class SceneManager extends Component {
     super(eng);
   }
 
-  async initialize() {
+  async initialize(): Promise<void> {
     //NOP
   }
 

@@ -5,7 +5,6 @@ import vec4 from '../math/vec4';
 
 export class Collision2D extends Component {
   protected _requiresUpdate: boolean;
-  private _id: string;
   private _bounds: rect;
   private _showCollision: boolean;
   protected _debugColor: vec4 = new vec4(0, 1, 0, 1);
@@ -64,7 +63,12 @@ export class Collision2D extends Component {
   public set showCollision(value: boolean) {
     this._showCollision = value;
     if (this._showCollision) {
-      this.eng.annotationManager.buildRect(this.id + '_collision', this.bounds, this._debugColor, 0.4);
+      this.eng.annotationManager.buildRect(
+        this.id + '_collision',
+        this.bounds,
+        this._debugColor,
+        0.4
+      );
     } else {
       this.eng.annotationManager.removeRect(this.id + '_collision');
     }
@@ -85,7 +89,12 @@ export class Collision2D extends Component {
     return this._id;
   }
 
-  constructor(eng: Engine, id: string, private _tag: Component, bounds?: Readonly<rect>) {
+  constructor(
+    eng: Engine,
+    id: string,
+    private _tag: Component,
+    bounds?: Readonly<rect>
+  ) {
     super(eng);
     this._id = id;
     this._bounds = bounds ? bounds.copy() : new rect();

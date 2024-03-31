@@ -19,7 +19,6 @@ export class SpriteController extends Component implements ISprite {
   protected _dirty: boolean;
   protected _world: mat4 = new mat4();
   protected _loc: [number, number, number, number] = [0, 0, 0, 0];
-  private _id: string;
 
   protected quad: IQuadModel = {
     color: vec4.one.copy(),
