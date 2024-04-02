@@ -135,7 +135,7 @@ export class ViewManager extends Component {
     this.updateProjection();
   }
 
-  updateProjection() {
+  private updateProjection() {
     this._screenX = Math.floor(this._targetX);
     if (this.minX != undefined && this.maxX != undefined) {
       this._screenX = MathConst.clamp(this._targetX, this.minX, this.maxX);
@@ -162,8 +162,6 @@ export class ViewManager extends Component {
       -1
     );
   }
-
-  update(dt: number) {}
 
   resize(width: number, height: number): void {
     this.updateProjection();

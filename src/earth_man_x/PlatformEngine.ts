@@ -55,9 +55,47 @@ export class PlatformEngine extends Engine {
     );
   }
 
+  /**
+   * the main update loop
+   * @param dt
+   * @returns
+   */
+  update(dt: number): void {
+    // if this is not active skip update
+    if (!this.isActive) {
+      return;
+    }
+
+    // update the scene
+    this.scene.update(dt);
+
+    // handle gamepad polling
+    this.input.preUpdate(dt);
+
+    // update the fps
+    this.fps.update(dt);
+
+    // handle input
+    this.soundManager.UserReady();
+    const inputState = this.input.getInputState();
+
+    // handle dialog input first
+    this.handleUserAction(inputState);
+
+    // clear the buffers
+    this.gl.clearColor(0.3, 0.3, 0.3, 1.0); // Clear to black, fully opaque
+    this.gl.clearDepth(1.0); // Clear everything
+
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+
+    this.draw(dt);
+    this.postDraw(dt);
+  }
+
   draw(dt: number): void {
     if (this.sceneManager.sceneReady) {
       this.sceneManager.update(dt);
+      this.sceneManager.draw(dt);
 
       this.physicsManager.update(dt);
 

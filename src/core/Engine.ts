@@ -20,6 +20,8 @@ import { SceneManager } from '../systems/SceneManager';
 import { SceneComponent } from '../components/SceneComponent';
 import { ResourceLoader } from '../utilities/LoadRemote';
 import { TileManager } from '../systems/TileManager';
+import { Scene } from '../components/Scene';
+import { LoadingManager } from '../systems/LoadingManager';
 
 /**
  * The engine for this game. There is one instance of this
@@ -49,6 +51,8 @@ export abstract class Engine {
   readonly tileManager: TileManager;
   readonly sceneManager: SceneManager;
   readonly remote: ResourceLoader;
+  readonly scene: Scene;
+  readonly loadingScreen: LoadingManager;
 
   /**
    * Is this active. This is used if the editor is running
@@ -83,6 +87,7 @@ export abstract class Engine {
 
     // create the canvas with the gl context so everything downstream can now use it
     this.canvasController = new CanvasController(this);
+    this.loadingScreen = this.createLoadingScene();
     this.gameManager = new GameManager(this);
     this.remote = new ResourceLoader();
     this.input = new InputHandler(this);
@@ -108,6 +113,11 @@ export abstract class Engine {
     this.physicsManager = new PhysicsManager(this);
     this.annotationManager = new AnnotationManager(this);
     this.tileManager = new TileManager(this);
+    this.scene = new Scene(this);
+  }
+
+  createLoadingScene(): LoadingManager {
+    return new LoadingManager(this);
   }
 
   createSceneManager(): SceneManager {
@@ -118,6 +128,7 @@ export abstract class Engine {
       },
     });
   }
+
   createAssetManager(): AssetManager {
     return new AssetManager(this);
   }
@@ -174,11 +185,19 @@ export abstract class Engine {
     );
   }
 
+  /**
+   * the main update loop
+   * @param dt
+   * @returns
+   */
   update(dt: number): void {
     // if this is not active skip update
     if (!this.isActive) {
       return;
     }
+
+    // update the scene
+    this.scene.update(dt);
 
     // handle gamepad polling
     this.input.preUpdate(dt);
@@ -187,9 +206,9 @@ export abstract class Engine {
     this.fps.update(dt);
 
     // handle input
-
     this.soundManager.UserReady();
     const inputState = this.input.getInputState();
+
     // handle dialog input first
     this.handleUserAction(inputState);
 
@@ -199,10 +218,18 @@ export abstract class Engine {
 
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-    this.draw(dt);
-    this.postDraw(dt);
+    if (this.scene.isReady) {
+      this.draw(dt);
+      this.postDraw(dt);
+    } else {
+      this.loadingScreen.draw(dt);
+    }
   }
 
+  /**
+   * Does the drawing
+   * @param dt
+   */
   draw(dt: number): void {
     this.physicsManager.update(dt);
     this.sceneManager.update(dt);
@@ -211,10 +238,16 @@ export abstract class Engine {
     this.textManager.update(dt);
     this.annotationManager.update(dt);
     this.tileManager.update(dt);
+    this.scene.draw(dt);
   }
 
+  /**
+   * Called after all drawing
+   * @param dt
+   */
   postDraw(dt: number): void {
     this.input.postUpdate(dt);
+    this.scene.postDraw(dt);
   }
 
   resize(width: number, height: number): void {

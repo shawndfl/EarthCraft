@@ -62,5 +62,6 @@ export class TileManager extends SystemComponent {
 
   dispose(): void {
     this.tiles.forEach((bg) => bg.dispose());
+    this.tiles = [];
   }
 }

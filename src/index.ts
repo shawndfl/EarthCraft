@@ -1,57 +1,61 @@
+import { Engine } from './core/Engine';
 import './css/canvas.scss';
 import { PlatformEngine } from './earth_man_x/PlatformEngine';
-import { GameEditor } from './earth_man_x/editor/GameEditor';
+import { HelloEngine } from './hello_earth/HelloEngine';
 
 const example = document.location.hash;
+let engine: Engine;
 
 /**
  * Start earth man x
  */
-if (example.toLocaleLowerCase().replace(/\?.*$/, '') === '#earth_man_x') {
-  /**
-   * Create the only instance of a canvas controller
-   */
-  const engine = new PlatformEngine();
-  const editor = new GameEditor(engine);
+if (example.toLocaleLowerCase() === '#earth_man_x') {
+  engine = new PlatformEngine();
+}
 
-  /** time tracking variables */
-  let previousTimeStamp: number;
+/**
+ * Start hello earth
+ */
+if (example.toLocaleLowerCase() === '#hello_earth') {
+  engine = new HelloEngine();
+}
 
-  function step(timestamp: number) {
-    window.requestAnimationFrame(step);
+/** time tracking variables */
+let previousTimeStamp: number;
 
-    // save the start time
-    if (previousTimeStamp === undefined) {
-      previousTimeStamp = timestamp;
-    }
+/**
+ * Main update function
+ * @param timestamp
+ */
+function step(timestamp: number) {
+  window.requestAnimationFrame(step);
 
-    // calculate the elapsed
-    const elapsed = timestamp - previousTimeStamp;
-
-    // if the frame tool longer than 20ms through it out
-    if (elapsed < 50) {
-      // update the scene
-      engine.update(elapsed);
-      // update the editor
-      editor.update(elapsed);
-    }
-    // request a new frame
+  // save the start time
+  if (previousTimeStamp === undefined) {
     previousTimeStamp = timestamp;
   }
 
-  /**
-   * Start the engine then request and animation frame
-   */
-  engine
-    .initialize(document.getElementById('game-container'))
-    .then(() => {
-      // initialize the editor
-      editor
-        .initialize(document.getElementById('editor-container'))
-        // then request the first animation frame
-        .then(() => window.requestAnimationFrame(step));
-    })
-    .catch((e: any) => {
-      console.error('Error initializing ', e);
-    });
+  // calculate the elapsed
+  const elapsed = timestamp - previousTimeStamp;
+
+  // if the frame tool longer than 20ms through it out
+  if (elapsed < 50) {
+    // update the scene
+    engine.update(elapsed);
+  }
+  // request a new frame
+  previousTimeStamp = timestamp;
 }
+
+/**
+ * Start the engine then request and animation frame
+ */
+engine
+  .initialize(document.getElementById('game-container'))
+  .then(() => {
+    // then request the first animation frame
+    window.requestAnimationFrame(step);
+  })
+  .catch((e: any) => {
+    console.error('Error initializing ', e);
+  });

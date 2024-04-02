@@ -1,8 +1,3 @@
-import mat2 from '../math/mat2';
-import mat4 from '../math/mat4';
-import quat from '../math/quat';
-import vec2 from '../math/vec2';
-import vec3 from '../math/vec3';
 import { IQuadModel } from './IQuadMode';
 
 /**
