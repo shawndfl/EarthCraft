@@ -3,6 +3,7 @@ import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
 import { LevelData } from '../data/ILevelData';
 import { SceneData } from '../data/SceneData';
+import * as THREE from 'three';
 
 /**
  * This is a base class for a scene
@@ -11,7 +12,7 @@ export class Scene extends Component {
   protected _inputComponents: Component[];
   protected _drawableComponents: Component[];
   protected _data: LevelData;
-
+  protected _scene: THREE.Scene;
   private _sceneReady: boolean;
 
   /**
@@ -34,6 +35,7 @@ export class Scene extends Component {
    */
   constructor(eng: Engine) {
     super(eng);
+    this._scene = new THREE.Scene();
   }
 
   /**

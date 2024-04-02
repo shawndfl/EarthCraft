@@ -22,6 +22,7 @@ import { ResourceLoader } from '../utilities/LoadRemote';
 import { TileManager } from '../systems/TileManager';
 import { Scene } from '../components/Scene';
 import { LoadingManager } from '../systems/LoadingManager';
+import * as THREE from 'three';
 
 /**
  * The engine for this game. There is one instance of this
@@ -53,6 +54,7 @@ export abstract class Engine {
   readonly remote: ResourceLoader;
   readonly scene: Scene;
   readonly loadingScreen: LoadingManager;
+  readonly renderer: THREE.WebGLRenderer;
 
   /**
    * Is this active. This is used if the editor is running
@@ -81,6 +83,10 @@ export abstract class Engine {
 
     this.urlParams = new URLSearchParams(queryString);
     this.isActive = true;
+
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+    });
 
     // need this to create uuids too
     this.random = new Random(1001);
