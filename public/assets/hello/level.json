@@ -2,12 +2,16 @@
     "id": "sceneId",
     "type": "scene Type",
     "properties":[["key"] ,["value properties for the scene"]],
+
     "components" :
     [
+       
         {
-            "id": "id",
-            "type": "component Type",
-            "other_properties": "..."
+            "id": "ground",
+            "type": "CollisionTile",
+            "position":[0,0],
+            "size": [1000, 20],
+            "image": "levelSprites.brick"
         }
     ]
 }

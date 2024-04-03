@@ -22,7 +22,6 @@ import { ResourceLoader } from '../utilities/LoadRemote';
 import { TileManager } from '../systems/TileManager';
 import { Scene } from '../components/Scene';
 import { LoadingManager } from '../systems/LoadingManager';
-import * as THREE from 'three';
 
 /**
  * The engine for this game. There is one instance of this
@@ -54,7 +53,6 @@ export abstract class Engine {
   readonly remote: ResourceLoader;
   readonly scene: Scene;
   readonly loadingScreen: LoadingManager;
-  readonly renderer: THREE.WebGLRenderer;
 
   /**
    * Is this active. This is used if the editor is running
@@ -83,10 +81,6 @@ export abstract class Engine {
 
     this.urlParams = new URLSearchParams(queryString);
     this.isActive = true;
-
-    this.renderer = new THREE.WebGLRenderer({
-      antialias: true,
-    });
 
     // need this to create uuids too
     this.random = new Random(1001);
@@ -259,6 +253,29 @@ export abstract class Engine {
   resize(width: number, height: number): void {
     //this.gl.viewport(0, 0, width, height);
     this.viewManager.resize(width, height);
+  }
+
+  reset(): void {
+    //this. spritePerspectiveShader;
+    //this.spriteShader: SpriteShader;
+    //this.spriteInstanceShader: SpriteInstanceShader;
+    //this.canvasController
+    // this.fps;
+    this.soundManager.reset();
+    this.viewManager.reset();
+    this.textManager.reset();
+    this.gameManager.reset();
+
+    this.assetManager.reset();
+
+    this.dialogManager.reset();
+    this.particleManager.reset();
+    this.physicsManager.reset();
+    this.annotationManager.reset();
+    this.tileManager.reset();
+    this.sceneManager.reset();
+    this.scene.reset();
+    this.loadingScreen.reset();
   }
 
   dispose() {}

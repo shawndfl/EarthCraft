@@ -1,13 +1,13 @@
-import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
 import * as MathConst from '../math/constants';
 import mat4 from '../math/mat4';
 import vec2 from '../math/vec2';
+import { SystemComponent } from './SystemComponent';
 
 /**
  * The View manager is used to move the project.
  */
-export class ViewManager extends Component {
+export class ViewManager extends SystemComponent {
   protected _screenX: number;
   protected _screenY: number;
   protected _screenW: number;
@@ -161,6 +161,31 @@ export class ViewManager extends Component {
       1,
       -1
     );
+  }
+
+  reset(): void {
+    this._targetX = 0;
+    this._targetY = 0;
+
+    this._top = 0;
+    this._left = 0;
+    this._right = 0;
+    this._bottom = 0;
+
+    this._projection = mat4.orthographic(
+      this._left,
+      this._right,
+      this._bottom,
+      this._top,
+      1,
+      -1
+    );
+    this._screenX = 0;
+    this._screenY = 0;
+    this._screenW = this.eng.width;
+    this._screenH = this.eng.height;
+
+    this.scale = 1.0;
   }
 
   resize(width: number, height: number): void {

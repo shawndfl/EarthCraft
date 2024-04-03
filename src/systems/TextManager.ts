@@ -173,7 +173,9 @@ export class TextManager extends SystemComponent {
 
     controller.initialize(textModel, this.maxHeightOfCharacters);
   }
+
   reset(): void {
+    this.texts.forEach((t) => t.dispose());
     this.texts.clear();
   }
   /**

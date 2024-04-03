@@ -1,6 +1,6 @@
-import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
 import { GameData } from '../data/GameData';
+import { SystemComponent } from './SystemComponent';
 
 /** Key for local storage */
 const localStorageKey = 'EarthQuest';
@@ -8,7 +8,7 @@ const localStorageKey = 'EarthQuest';
 /**
  * This is the main class that manages game state
  */
-export class GameManager extends Component {
+export class GameManager extends SystemComponent {
   data: GameData;
   private _timeCounter: number;
 
@@ -55,5 +55,12 @@ export class GameManager extends Component {
         t.h++;
       }
     }
+  }
+
+  /**
+   * Loading a new scene
+   */
+  reset(): void {
+    //NOP
   }
 }

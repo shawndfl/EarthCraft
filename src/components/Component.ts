@@ -39,6 +39,11 @@ export abstract class Component {
   ) {}
 
   /**
+   * Called when all the components have been initialized
+   */
+  onSceneLoaded(): void {}
+
+  /**
    * Called before drawing
    * @param dt
    */

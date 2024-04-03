@@ -1,6 +1,13 @@
+import { CollisionTile } from '../components/CollisionTile';
+import { Component } from '../components/Component';
 import rect from '../math/rect';
 import vec2 from '../math/vec2';
 import vec3 from '../math/vec3';
+
+export interface IComponentData {
+  id: string;
+  type: string;
+}
 
 /**
  * This is the scene data that will be used in code.
@@ -8,6 +15,7 @@ import vec3 from '../math/vec3';
 export class SceneData {
   size: vec3;
   tileSheetUrl: string;
+  components: IComponentData[];
 
   constructor(sceneData: string) {}
 
