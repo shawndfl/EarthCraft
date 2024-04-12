@@ -25,6 +25,7 @@ body {
 #game-container {
   position: absolute;
   width: 100%;
+  max-width: 800px;
   top: 0px;
   left: 0px;
   z-index: 0;

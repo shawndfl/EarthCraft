@@ -22,6 +22,7 @@ import { ResourceLoader } from '../utilities/LoadRemote';
 import { TileManager } from '../systems/TileManager';
 import { Scene } from '../components/Scene';
 import { LoadingManager } from '../systems/LoadingManager';
+import { Editor } from '../editor/Editor';
 
 /**
  * The engine for this game. There is one instance of this
@@ -114,6 +115,18 @@ export abstract class Engine {
     this.annotationManager = new AnnotationManager(this);
     this.tileManager = new TileManager(this);
     this.scene = new Scene(this);
+  }
+
+  createEditor(): Editor {
+    return new Editor(this);
+  }
+
+  hide(): void {
+    this.canvasController.container.classList.add('game-hidden');
+  }
+
+  show(): void {
+    this.canvasController.container.classList.remove('game-hidden');
   }
 
   createLoadingScene(): LoadingManager {

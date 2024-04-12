@@ -14,6 +14,10 @@ export class CanvasController extends Component {
   private errorHtml: HTMLElement;
   private _canvas: HTMLCanvasElement;
 
+  get container(): HTMLElement {
+    return this._container;
+  }
+
   get canvas(): HTMLCanvasElement {
     return this._canvas;
   }
