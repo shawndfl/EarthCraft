@@ -73,4 +73,12 @@ export class PlatformEngine extends Engine {
     this.sceneManager.update(dt);
   }
   */
+
+  reset(): void {
+    super.reset();
+
+    this.player.reset();
+    this.bullets.reset();
+    this.enemies.reset();
+  }
 }
