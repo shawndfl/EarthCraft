@@ -1,21 +1,22 @@
 import REACT from 'jsx-dom';
 import { EditorCollision } from './EditorCollision';
 import { EditorComponent } from './EditorComponent';
+
+import vec2 from '../../math/vec2';
+import rect from '../../math/rect';
 import {
   DefaultLevelHeight,
   DefaultLevelWidth,
   ICollision,
-  LevelData,
-} from '../../data/ILevelData';
-import vec2 from '../../math/vec2';
-import rect from '../../math/rect';
+  SceneData,
+} from '../../data/SceneData';
 
 export class EditorCanvas extends EditorComponent {
   private _canvas: HTMLCanvasElement;
   container: HTMLElement;
   context: CanvasRenderingContext2D;
   collisions: Map<string, EditorCollision> = new Map<string, EditorCollision>();
-  levelData: LevelData;
+  sceneData: SceneData;
 
   public get canvas(): HTMLCanvasElement {
     return this._canvas;
@@ -37,22 +38,22 @@ export class EditorCanvas extends EditorComponent {
    * Create a new level
    */
   newLevel(): void {
-    this.levelData.reset();
-    this.loadLevel(this.levelData);
+    this.sceneData.reset();
+    this.loadLevel(this.sceneData);
   }
 
   /**
    * Load a level
    * @param data
    */
-  loadLevel(data: LevelData) {
-    this.levelData = data;
+  loadLevel(data: SceneData) {
+    this.sceneData = data;
     this.collisions.clear();
 
     this._canvas.width = data.size.x;
     this._canvas.height = data.size.y;
 
-    this.levelData.collision.forEach((c) => {
+    this.sceneData.collision.forEach((c) => {
       this.createCollision(c);
     });
 
@@ -83,9 +84,11 @@ export class EditorCanvas extends EditorComponent {
   }
 
   saveLevel(): void {
-    const sceneType = this.editor.eng.sceneManager.sceneType;
+    /*
+    const sceneType = this.editor.eng.scene.sceneType;
     const storage = window.localStorage;
     storage.setItem(sceneType + '*', this.levelData.serialize());
     console.debug('saved');
+    */
   }
 }

@@ -1,4 +1,4 @@
-import { IEntity } from '../../data/ILevelData';
+import { IEntity } from '../../data/SceneData';
 import vec2 from '../../math/vec2';
 import vec4 from '../../math/vec4';
 import { PlatformEngine } from '../PlatformEngine';

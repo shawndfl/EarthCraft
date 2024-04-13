@@ -1,5 +1,5 @@
-import { IImageTiles } from '../data/ILevelData';
 import { Engine } from '../core/Engine';
+import { IImageTiles } from '../data/SceneData';
 import { SpriteData } from '../graphics/ISpriteData';
 import { SpriteController } from '../graphics/SpriteController';
 import { Texture } from '../graphics/Texture';

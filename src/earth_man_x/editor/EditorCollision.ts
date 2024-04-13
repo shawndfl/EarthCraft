@@ -1,4 +1,4 @@
-import { ICollision } from '../../data/ILevelData';
+import { ICollision } from '../../data/SceneData';
 import { EditorComponent } from './EditorComponent';
 import { GameEditor } from './GameEditor';
 

@@ -1,6 +1,7 @@
 import { Engine } from './core/Engine';
 import './css/canvas.scss';
 import { PlatformEngine } from './earth_man_x/PlatformEngine';
+//import { EarthQuestEngine } from './earth_quest/EarthQuestEngine';
 import { Editor } from './editor/Editor';
 import { HelloEngine } from './hello_earth/HelloEngine';
 
@@ -13,6 +14,13 @@ let editor: Editor;
  */
 if (example.toLocaleLowerCase() === '#earth_man_x') {
   engine = new PlatformEngine();
+}
+
+/**
+ * Start earth quest
+ */
+if (example.toLocaleLowerCase() === '#earth_quest') {
+  //engine = new EarthQuestEngine();
 }
 
 /**

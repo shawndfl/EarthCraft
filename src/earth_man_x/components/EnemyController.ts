@@ -7,7 +7,11 @@ import { Collision2D } from '../../physics/Collision2D';
 import { RidgeBody } from '../../physics/RidgeBody';
 import { PlatformEngine } from '../PlatformEngine';
 import { CollisionType } from '../data/CollisionTypes';
-import { EntityStateController, EntityStateFlags, EntityStateOptions } from '../data/EntityStateController';
+import {
+  EntityStateController,
+  EntityStateFlags,
+  EntityStateOptions,
+} from '../data/EntityStateController';
 import { BulletController } from './BulletController';
 import { BulletType } from './BulletType';
 import { DecisionAction, DecisionMaker } from './DecisionMaker';
@@ -54,7 +58,7 @@ export class EnemyController extends GameComponent {
     super(eng);
 
     if (!this._options.spriteName) {
-      console.error('sprite required for entity ', this._options.id);
+      this._options.spriteName = 'default';
     }
 
     if (!this._options.id) {
@@ -67,7 +71,10 @@ export class EnemyController extends GameComponent {
     this.decision.onValidate = this.decisionValidate.bind(this);
 
     // set up the sprite
-    this.sprite = new SpriteInstanceController(this.id, this.eng.enemies.spriteCollection);
+    this.sprite = new SpriteInstanceController(
+      this.id,
+      this.eng.enemies.spriteCollection
+    );
     this.sprite.spriteImage(this.spriteName);
     this.sprite.left = this._options.pos.x;
     this.sprite.top = this._options.pos.y;
@@ -76,10 +83,18 @@ export class EnemyController extends GameComponent {
     this.sprite.yScale = 1;
 
     // build the ridge body
-    this.ridgeBody = new RidgeBody(this.eng, this.id, this, new rect([0, 64, 0, 64]));
+    this.ridgeBody = new RidgeBody(
+      this.eng,
+      this.id,
+      this,
+      new rect([0, 64, 0, 64])
+    );
 
     this.ridgeBody.collideMask =
-      CollisionType.enemy | CollisionType.playerBullet | CollisionType.default | CollisionType.player;
+      CollisionType.enemy |
+      CollisionType.playerBullet |
+      CollisionType.default |
+      CollisionType.player;
     this.ridgeBody.collisionType = CollisionType.enemy;
 
     //this.ridgeBody.showCollision = true;
@@ -102,7 +117,12 @@ export class EnemyController extends GameComponent {
 
     // set the bounds for collision in pixels
     this.ridgeBody.setBounds(
-      new rect([this.sprite.left, collisionWidth, this.sprite.top + collisionHeight, collisionHeight])
+      new rect([
+        this.sprite.left,
+        collisionWidth,
+        this.sprite.top + collisionHeight,
+        collisionHeight,
+      ])
     );
 
     // update the sprite as the ridge body moves
@@ -122,7 +142,11 @@ export class EnemyController extends GameComponent {
     this.entityStateOptions = new EntityStateOptions();
     this.entityStateOptions.dieDelayMs = 100;
     this.entityStateOptions.type = 'enemy';
-    this.entityState.initialize(this.sprite, this.ridgeBody, this.entityStateOptions);
+    this.entityState.initialize(
+      this.sprite,
+      this.ridgeBody,
+      this.entityStateOptions
+    );
 
     // start by teleporting down
     this.entityState.teleport(false);
@@ -142,7 +166,10 @@ export class EnemyController extends GameComponent {
         const bullet = c.tag as BulletController;
 
         // only the player bullets can hit the enemy
-        if (bullet.bulletType === BulletType.PlayerBullet || bullet.bulletType === BulletType.PlayerBomb) {
+        if (
+          bullet.bulletType === BulletType.PlayerBullet ||
+          bullet.bulletType === BulletType.PlayerBomb
+        ) {
           this.hit(bullet);
         }
       }
@@ -168,14 +195,20 @@ export class EnemyController extends GameComponent {
     }
   }
 
-  decisionValidate(lastAction: DecisionAction, newAction: DecisionAction): DecisionAction {
+  decisionValidate(
+    lastAction: DecisionAction,
+    newAction: DecisionAction
+  ): DecisionAction {
     if (lastAction == DecisionAction.MoveRight) {
     }
     return newAction;
   }
 
   runAction(action: DecisionAction): void {
-    if (this.entityState.stateType == EntityStateFlags.Disable || this.isActive == false) {
+    if (
+      this.entityState.stateType == EntityStateFlags.Disable ||
+      this.isActive == false
+    ) {
       return;
     }
     switch (action) {

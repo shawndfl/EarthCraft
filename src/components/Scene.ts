@@ -1,21 +1,28 @@
 import { InputState } from '../core/InputState';
 import { Component } from '../components/Component';
 import { Engine } from '../core/Engine';
-import { IComponentData, SceneData } from '../data/SceneData';
-import { CollisionTile, CollisionTileArgs } from './CollisionTile';
+import { SceneData } from '../data/SceneData';
 
 /**
  * This the scene that will be rended. It can be data driven by calling
  * queueNewScene()
  */
 export class Scene extends Component {
-  protected _inputComponents: Component[];
-  protected _drawableComponents: Component[];
   protected _data: SceneData;
-  private _sceneReady: boolean;
-  private _isLoading: boolean;
+  protected _sceneReady: boolean;
+  protected _isLoading: boolean;
+  private _sceneUrl: string;
 
-  private _components: Component[];
+  get sceneUrl(): string {
+    return this._sceneUrl;
+  }
+
+  /**
+   * Get the scene data
+   */
+  get sceneData(): SceneData {
+    return this._data;
+  }
 
   /**
    * Is the scene ready
@@ -29,30 +36,14 @@ export class Scene extends Component {
   }
 
   /**
-   * Gets custom scene data
-   */
-  get sceneData(): SceneData {
-    return this._data;
-  }
-
-  /**
    * constructor
    * @param eng
    */
   constructor(eng: Engine) {
     super(eng);
     console.debug('creating scene');
-    this._components = [];
   }
 
-  /**
-   * Get a component of a given id
-   * @param id
-   * @returns
-   */
-  getComponent(id: string): Component {
-    return this._components.find((c) => c.id === id);
-  }
   /**
    * Handles user input. The logic goes through a chain of commands
    * @param action the action from keyboard or gamepad
@@ -60,6 +51,15 @@ export class Scene extends Component {
    */
   handleUserAction(action: InputState): boolean {
     return false;
+  }
+
+  /**
+   * Gets the scene data from local storage or a remote endpoint
+   * @param urlSceneData
+   * @returns
+   */
+  async getSceneData(urlSceneData: string): Promise<SceneData> {
+    return SceneData.loadFrom(urlSceneData);
   }
 
   /**
@@ -78,25 +78,15 @@ export class Scene extends Component {
       return;
     }
 
+    this._sceneUrl = urlSceneData;
     // now we are in a loading state
     this._isLoading = true;
     this._sceneReady = false;
 
-    // check local storage first
-    const localStorage = window.localStorage.getItem(urlSceneData);
-    if (localStorage) {
-      console.debug('loading scene from local storage');
-      this._data = JSON.parse(localStorage);
+    this.getSceneData(urlSceneData).then((sceneData) => {
+      this._data = sceneData;
       this.initialize();
-    } else {
-      // try a remote call
-      console.debug('remote loading...');
-      this.eng.remote.loadFile(urlSceneData).then((v) => {
-        this._data = JSON.parse(v);
-        console.debug('got scene response', this._data);
-        this.initialize();
-      });
-    }
+    });
   }
 
   /**
@@ -118,69 +108,33 @@ export class Scene extends Component {
   postDraw(dt: number): void {}
 
   /**
-   * Show scene is called when a SceneManager changes to a new scene.
+   * Sets up the scene
    */
-  async initialize(): Promise<void> {
-    console.debug('initializing scene...');
-    // must have data
-    if (!this._data) {
-      console.error('no data call queueNewScene() first');
-      return;
-    }
+  async initialize(): Promise<void> {}
 
-    // reset the scene
-    this.reset();
-
-    console.debug(
-      'processing ' + this._data.components.length + ' components...'
-    );
-    const promises = [];
-    for (let i = 0; i < this._data.components.length; i++) {
-      promises.push(this.createComponent(this._data.components[i]));
-    }
-
-    // let all the components initialize
-    await Promise.all(promises).then((c) => {
-      this._components = c.slice();
-
-      // let each component know the scene is loaded
-      for (let i = 0; i < this._components.length; i++) {
-        this._components[i].onSceneLoaded();
-      }
-
-      // now the scene is ready
-      this._sceneReady = true;
-      this._isLoading = false;
-
-      // reset the loading screen
-      this.eng.loadingScreen.reset();
-    });
+  /**
+   * The derived class can use this to keep track of components that get
+   * created from the scene data.
+   * @param sceneData
+   * @returns
+   */
+  async createComponents(sceneData: SceneData): Promise<Component> {
+    return null;
   }
 
-  async createComponent(data: IComponentData): Promise<Component> {
-    console.debug('   creating Component: ' + data?.type + '...');
-    let component: Component;
-    switch (data.type) {
-      case 'CollisionTile':
-        component = await new CollisionTile(this.eng).initialize(
-          data as CollisionTileArgs
-        );
-        break;
-    }
-
-    return component;
+  /**
+   * Restarts the scene. Calls Engine.reset() then queue the scene again
+   */
+  restart(): void {
+    this.eng.reset();
+    this.queueNewScene(this.sceneUrl);
   }
 
-  reset(): void {
-    this._components.forEach((c) => {
-      c.dispose();
-    });
-
-    this._components = [];
-
-    this.eng.physicsManager.reset();
-    //TODO reset all systems
-  }
+  /**
+   * Resets stuff related to the scene. The Engine.reset() will handle
+   * all other systems
+   */
+  reset(): void {}
 
   /**
    * When the window is resized

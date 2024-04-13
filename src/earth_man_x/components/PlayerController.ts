@@ -8,7 +8,6 @@ import { RidgeBody } from '../../physics/RidgeBody';
 import { Collision2D } from '../../physics/Collision2D';
 import { GameComponent } from './GameComponent';
 import { SpriteController } from '../../graphics/SpriteController';
-import { IPlayerOptions } from '../../data/ILevelData';
 import {
   EntityStateController,
   EntityStateFlags,
@@ -21,6 +20,7 @@ import { Direction } from './Direction';
 import { BulletType } from './BulletType';
 import { BulletController } from './BulletController';
 import { equals } from '../../math/constants';
+import { IPlayerOptions } from '../../data/SceneData';
 
 export class PlayerController extends GameComponent {
   private sprite: SpriteController;
@@ -288,7 +288,7 @@ export class PlayerController extends GameComponent {
 
   hitByDeath(other: Collision2D): void {
     this.entityState.die(() => {
-      this.eng.sceneManager.reset();
+      this.eng.reset();
     });
   }
 

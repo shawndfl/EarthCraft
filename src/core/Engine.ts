@@ -15,14 +15,11 @@ import { PhysicsManager } from '../systems/PhysicsManager';
 import { AnnotationManager } from '../systems/AnnotationManager';
 import { SpriteShader } from '../shaders/SpriteShader';
 import { SpriteInstanceShader } from '../shaders/SpriteInstanceShader';
-
-import { SceneManager } from '../systems/SceneManager';
-import { SceneComponent } from '../components/SceneComponent';
-import { ResourceLoader } from '../utilities/LoadRemote';
 import { TileManager } from '../systems/TileManager';
 import { Scene } from '../components/Scene';
 import { LoadingManager } from '../systems/LoadingManager';
 import { Editor } from '../editor/Editor';
+import { ResourceLoader } from '../utilities/ResourceLoader';
 
 /**
  * The engine for this game. There is one instance of this
@@ -50,7 +47,6 @@ export abstract class Engine {
   readonly physicsManager: PhysicsManager;
   readonly annotationManager: AnnotationManager;
   readonly tileManager: TileManager;
-  readonly sceneManager: SceneManager;
   readonly remote: ResourceLoader;
   readonly scene: Scene;
   readonly loadingScreen: LoadingManager;
@@ -109,12 +105,11 @@ export abstract class Engine {
       'spriteInstanceShader'
     );
 
-    this.sceneManager = this.createSceneManager();
+    this.scene = this.createScene();
     this.particleManager = new ParticleManager(this);
     this.physicsManager = new PhysicsManager(this);
     this.annotationManager = new AnnotationManager(this);
     this.tileManager = new TileManager(this);
-    this.scene = new Scene(this);
   }
 
   createEditor(): Editor {
@@ -133,13 +128,8 @@ export abstract class Engine {
     return new LoadingManager(this);
   }
 
-  createSceneManager(): SceneManager {
-    return new SceneManager(this, {
-      createScene(type: string): SceneComponent {
-        console.error('no scene factor found');
-        return null;
-      },
-    });
+  createScene(): Scene {
+    return new Scene(this);
   }
 
   createAssetManager(): AssetManager {
@@ -163,11 +153,13 @@ export abstract class Engine {
       // NOTE, this must be done before any textures are loaded
       this.gl.pixelStorei(this.gl.UNPACK_FLIP_Y_WEBGL, true);
 
-      //await this.gameManager.initialize();
+      // initialize systems.
+      // We do not need to initialize the scene because that will
+      // be done when the scene loads see Scene.queueNewScene()
+      await this.gameManager.initialize();
       await this.assetManager.initialize();
       await this.textManager.initialize();
       await this.dialogManager.initialize();
-      await this.sceneManager.initialize();
       await this.particleManager.initialize();
       await this.physicsManager.initialize();
       await this.annotationManager.initialize();
@@ -194,7 +186,7 @@ export abstract class Engine {
   handleUserAction(state: InputState): boolean {
     return (
       this.dialogManager.handleUserAction(state) ||
-      this.sceneManager.scene.handleUserAction(state)
+      this.scene.handleUserAction(state)
     );
   }
 
@@ -245,7 +237,7 @@ export abstract class Engine {
    */
   draw(dt: number): void {
     this.physicsManager.update(dt);
-    this.sceneManager.update(dt);
+    this.scene.update(dt);
     this.particleManager.update(dt);
     this.dialogManager.update(dt);
     this.textManager.update(dt);
@@ -269,11 +261,6 @@ export abstract class Engine {
   }
 
   reset(): void {
-    //this. spritePerspectiveShader;
-    //this.spriteShader: SpriteShader;
-    //this.spriteInstanceShader: SpriteInstanceShader;
-    //this.canvasController
-    // this.fps;
     this.soundManager.reset();
     this.viewManager.reset();
     this.textManager.reset();
@@ -286,7 +273,6 @@ export abstract class Engine {
     this.physicsManager.reset();
     this.annotationManager.reset();
     this.tileManager.reset();
-    this.sceneManager.reset();
     this.scene.reset();
     this.loadingScreen.reset();
   }

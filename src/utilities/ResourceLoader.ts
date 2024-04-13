@@ -7,7 +7,7 @@ export class ResourceLoader {
    * @param path
    * @returns
    */
-  async loadFile(path: string): Promise<string> {
+  static async loadFile(path: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = (e) => {

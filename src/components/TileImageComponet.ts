@@ -1,5 +1,5 @@
-import { IImageTiles } from '../data/ILevelData';
 import { Engine } from '../core/Engine';
+import { IImageTiles } from '../data/SceneData';
 import { ISprite } from '../graphics/ISprite';
 import { Component } from './Component';
 

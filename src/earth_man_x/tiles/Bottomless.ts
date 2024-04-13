@@ -6,8 +6,6 @@ import { Collision2D } from '../../physics/Collision2D';
 import { PlatformEngine } from '../PlatformEngine';
 import { EnemyController } from '../components/EnemyController';
 import { PlayerController } from '../components/PlayerController';
-
-import { ICollision } from '../../data/ILevelData';
 import { CollisionBox, ICollisionBoxOptions } from './CollisionBox';
 
 export interface IBottomlessOptions extends ICollisionBoxOptions {}

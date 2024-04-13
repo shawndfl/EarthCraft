@@ -23,6 +23,9 @@ export class Editor {
     }
     root.classList.remove('game-hidden');
 
+    const urlSceneData = this.eng.urlParams.get('level');
+    const sceneData = this.eng.scene.getSceneData(urlSceneData);
+
     this._container = (
       <div class='editor'>
         {this._tileSelector.createHtml()}
@@ -32,6 +35,8 @@ export class Editor {
     root.append(this._container);
     this.eng.hide();
   }
+
+  loadScene(urlSceneData: string): void {}
 
   play(): void {}
 

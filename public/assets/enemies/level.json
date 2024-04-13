@@ -3,9 +3,9 @@
   "tileSheetUrl": "assets/level2/tiles",
   "player": {
     "pos": [50, 150],
+    "health": 90,
     "meta": [
-      ["debug", "false"],
-      ["health", "90"]
+      ["debug", "false"]
     ]
   },
   "entities":[
@@ -30,103 +30,48 @@
     
     {
         "type":"enemy",
-        "pos": [3700, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [3700, 150]
     }
     ,
     {
         "type":"enemy",
-        "pos": [3800, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [3800, 150]
     },
     {
         "type":"enemy",
-        "pos": [3900, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [3900, 150]
     },
     {
         "type":"enemy",
-        "pos": [4000, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4000, 150]
     },
     {
         "type":"enemy",
-        "pos": [4100, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4100, 150]
     },
     {
         "type":"enemy",
-        "pos": [4020, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4020, 150]
     },
     {
         "type":"enemy",
-        "pos": [4020, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4020, 150]
     },
     {
         "type":"enemy",
-        "pos": [4020, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4020, 150]
     },
     {
         "type":"enemy",
-        "pos": [4020, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4020, 150]
     },
     {
         "type":"enemy",
-        "pos": [4020, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4020, 150]
     },
     {
         "type":"enemy",
-        "pos": [4020, 150],
-        "meta": [
-            ["health", "100"],
-            ["sprite", "default"],
-            ["move", "true"]
-        ]
+        "pos": [4020, 150]
     }
   ],
   "images": [
@@ -139,99 +84,99 @@
       "image": "sky"
     },
     {
-      "pos": [10, 132],
+      "pos": [0, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [74, 132],
+      "pos": [64, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [138, 132],
+      "pos": [128, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [208, 132],
+      "pos": [196, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [266, 132],
+      "pos": [260, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [330, 132],
+      "pos": [324, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [394, 132],
+      "pos": [388, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [458, 132],
+      "pos": [452, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [522, 132],
+      "pos": [516, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [586, 132],
+      "pos": [580, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [650, 132],
+      "pos": [664, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [714, 132],
+      "pos": [708, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [778, 132],
+      "pos": [772, 132],
       "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
     },
     {
-      "pos": [842, 132],
-      "size": [32, 64],
+      "pos": [836, 132],
+      "size": [64, 64],
       "type": "ground",
       "zIndex": 0,
       "image": "grass"
@@ -277,19 +222,19 @@
     },
     {
       "id": "step2",
-      "box": [700, 100, 250, 50],
+      "box": [900, 100, 250, 50],
       "type": "box",
       "meta": [["debug", "true"]]
     },
     {
       "id": "step3",
-      "box": [800, 100, 350, 50],
+      "box": [1000, 100, 350, 50],
       "type": "box",
       "meta": [["debug", "true"]]
     },
     {
       "id": "step4",
-      "box": [900, 100, 450, 50],
+      "box": [1200, 100, 450, 50],
       "type": "box",
       "meta": [["debug", "true"]]
     },

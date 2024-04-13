@@ -1,10 +1,11 @@
-import { IImageTiles } from '../data/ILevelData';
 import { TileImageComponent } from '../components/TileImageComponet';
 import { Engine } from '../core/Engine';
+import { IImageTiles } from '../data/SceneData';
 import { SpriteData } from '../graphics/ISpriteData';
 import { SpriteInstanceCollection } from '../graphics/SpriteInstanceCollection';
 import { SpriteInstanceController } from '../graphics/SpriteInstanceController';
 import { Texture } from '../graphics/Texture';
+import { ResourceLoader } from '../utilities/ResourceLoader';
 import { SystemComponent } from './SystemComponent';
 
 /**
@@ -26,7 +27,7 @@ export class TileManager extends SystemComponent {
   async loadTexture(tileSheetUrl: string): Promise<void> {
     // get the tile texture
     await this.tileTexture.loadImage(tileSheetUrl + '.png');
-    const spriteDataString = await this.eng.remote.loadFile(
+    const spriteDataString = await ResourceLoader.loadFile(
       tileSheetUrl + '.json'
     );
     if (!spriteDataString) {

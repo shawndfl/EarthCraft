@@ -50,7 +50,7 @@ export class GameEditor extends GameComponent {
     });
 
     await this._canvas.initialize();
-    this._canvas.loadLevel(this.eng.sceneManager.sceneData);
+    this._canvas.loadLevel(this.eng.scene.sceneData);
     root.append(this._canvas.container, this.playButton.createHtml());
 
     this._ready = true;
@@ -69,7 +69,7 @@ export class GameEditor extends GameComponent {
     // enable the game
     this.eng.isActive = this._isPlaying;
     this.saveLevel();
-    this.eng.sceneManager.loadStorageLevel();
+    this.eng.scene.restart();
   }
 
   saveLevel(): void {
