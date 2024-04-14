@@ -2,14 +2,14 @@ import REACT from 'jsx-dom';
 import { EditorCollision } from './EditorCollision';
 import { EditorComponent } from './EditorComponent';
 
-import vec2 from '../../math/vec2';
-import rect from '../../math/rect';
+import vec2 from '../math/vec2';
+import rect from '../math/rect';
 import {
   DefaultLevelHeight,
   DefaultLevelWidth,
   ICollision,
   SceneData,
-} from '../../data/SceneData';
+} from '../data/SceneData';
 
 export class EditorCanvas extends EditorComponent {
   private _canvas: HTMLCanvasElement;
@@ -22,7 +22,7 @@ export class EditorCanvas extends EditorComponent {
     return this._canvas;
   }
 
-  async initialize(): Promise<void> {
+  createHtml(): HTMLElement {
     this.container = (<div class='editor-canvas'></div>) as HTMLElement;
     this._canvas = document.createElement('canvas');
     this._canvas.width = DefaultLevelWidth;
@@ -32,21 +32,24 @@ export class EditorCanvas extends EditorComponent {
     this._canvas.classList.add('editor-canvas', 'canvas');
     this.container.append(this._canvas);
     this.canvas.addEventListener('mousemove', (e) => {});
+    return this.container;
   }
+
+  async initialize(): Promise<void> {}
 
   /**
    * Create a new level
    */
   newLevel(): void {
     this.sceneData.reset();
-    this.loadLevel(this.sceneData);
+    this.loadScene(this.sceneData);
   }
 
   /**
    * Load a level
    * @param data
    */
-  loadLevel(data: SceneData) {
+  loadScene(data: SceneData) {
     this.sceneData = data;
     this.collisions.clear();
 

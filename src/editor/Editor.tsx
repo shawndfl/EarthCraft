@@ -1,19 +1,34 @@
 import { Engine } from '../core/Engine';
 import '../css/editor.scss';
-import { Canvas } from './Canvas';
+import { SceneData } from '../data/SceneData';
+import { EditorCanvas } from './EditorCanvas';
 import { TileSelector } from './TileSelector';
 
 export class Editor {
   protected _container: HTMLElement;
   protected _tileSelector: TileSelector;
-  protected _canvas: Canvas;
+  protected _canvas: EditorCanvas;
+  protected _sceneUrl: string;
+  protected _sceneData: SceneData;
+
+  get sceneData(): SceneData {
+    return this._sceneData;
+  }
+
+  get sceneUrl(): string {
+    return this._sceneUrl;
+  }
+
+  get canvas(): EditorCanvas {
+    return this._canvas;
+  }
 
   get eng(): Engine {
     return this._eng;
   }
 
   constructor(protected _eng: Engine) {
-    this._canvas = new Canvas(this);
+    this._canvas = new EditorCanvas(this);
     this._tileSelector = new TileSelector(this);
   }
 
@@ -23,9 +38,7 @@ export class Editor {
     }
     root.classList.remove('game-hidden');
 
-    const urlSceneData = this.eng.urlParams.get('level');
-    const sceneData = this.eng.scene.getSceneData(urlSceneData);
-
+    // create the view
     this._container = (
       <div class='editor'>
         {this._tileSelector.createHtml()}
@@ -34,11 +47,30 @@ export class Editor {
     ) as HTMLElement;
     root.append(this._container);
     this.eng.hide();
+
+    // load the scene
+    this._sceneUrl = this.eng.urlParams.get('level');
+    this._sceneData = await this.eng.scene.getSceneData(this.sceneUrl);
+
+    this._canvas.loadScene(this._sceneData);
   }
 
   loadScene(urlSceneData: string): void {}
 
-  play(): void {}
+  play(): void {
+    this.save(this.sceneUrl);
+    this.eng.show();
+    this.eng.scene.queueNewScene(this.sceneUrl);
+  }
+
+  save(sceneUrl: string): void {
+    this._sceneUrl = sceneUrl;
+    this._sceneData.saveLocally(this.sceneUrl);
+  }
+
+  download(): void {
+    //TODO download json
+  }
 
   update(dt: number): void {}
 }

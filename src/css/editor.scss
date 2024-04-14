@@ -6,15 +6,20 @@
   top: 0px;
   left: 0px;
   z-index: 1;
-  display: flex;
-  flex-wrap: nowrap;
   height: 100%;
   .editor {
+    display: flex;
+    flex-wrap: nowrap;
     width: 100%;
     height: 100%;
     background-color: $main;
+    canvas {
+      width: 100%;
+      height: 20%;
+    }
     .tile-selector {
       width: 200px;
+      min-width: 200px;
       border: 1px solid $accent;
       height: 100%;
       background-color: $secondary;

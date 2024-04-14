@@ -1,6 +1,6 @@
-import { ICollision } from '../../data/SceneData';
+import { ICollision } from '../data/SceneData';
+import { Editor } from './Editor';
 import { EditorComponent } from './EditorComponent';
-import { GameEditor } from './GameEditor';
 
 export class EditorCollision extends EditorComponent {
   get id(): string {
@@ -15,14 +15,19 @@ export class EditorCollision extends EditorComponent {
     return this._collision.meta;
   }
 
-  constructor(protected _collision: ICollision, editor: GameEditor) {
+  constructor(protected _collision: ICollision, editor: Editor) {
     super(editor);
   }
 
   draw(context: CanvasRenderingContext2D): void {
     const box = this._collision.box;
     context.fillStyle = '#ff0000';
-    const height = this.editor.editorCanvas.canvas.height;
+    const height = this.editor.canvas.canvas.height;
     context.fillRect(box.left, height - box.top, box.width, box.height);
+  }
+
+  createHtml(): HTMLElement {
+    //NOP The EditorCanvas creates HTML
+    return null;
   }
 }

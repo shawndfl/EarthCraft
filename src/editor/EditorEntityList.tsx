@@ -1,21 +1,19 @@
-import { Component } from '../../components/Component';
-import { Engine } from '../../core/Engine';
 import { EditorComponent } from './EditorComponent';
 import { EditorEntityItem } from './EditorEntityItem';
 import REACT from 'jsx-dom';
-import { GameEditor } from './GameEditor';
+import { Editor } from './Editor';
 
 export class EditorEntityList extends EditorComponent {
   items: EditorEntityItem[];
   container: HTMLElement;
 
-  constructor(editor: GameEditor) {
+  constructor(editor: Editor) {
     super(editor);
   }
 
-  buildView(parent: HTMLElement) {
+  createHtml(): HTMLElement {
     this.container = (<div class='editor-entities'></div>) as HTMLElement;
-    parent.append(this.container);
+    return this.container;
   }
 
   addItem(

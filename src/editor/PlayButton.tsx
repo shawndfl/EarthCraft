@@ -12,7 +12,7 @@ export class PlayButton extends EditorComponent {
     ) as HTMLElement;
 
     this._container.firstChild.addEventListener('click', () => {
-      this.editor.playToggle();
+      this.editor.play();
     });
     return this._container;
   }

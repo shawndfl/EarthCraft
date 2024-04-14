@@ -58,8 +58,8 @@ export class Scene extends Component {
    * @param urlSceneData
    * @returns
    */
-  async getSceneData(urlSceneData: string): Promise<SceneData> {
-    return SceneData.loadFrom(urlSceneData);
+  async getSceneData(sceneUrl: string): Promise<SceneData> {
+    return SceneData.loadFrom(sceneUrl);
   }
 
   /**

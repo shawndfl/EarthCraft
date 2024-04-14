@@ -1,8 +1,6 @@
-import { Component } from '../../components/Component';
-import { Engine } from '../../core/Engine';
 import REACT from 'jsx-dom';
 import { EditorComponent } from './EditorComponent';
-import { GameEditor } from './GameEditor';
+import { Editor } from './Editor';
 
 /**
  * Item in the entity list
@@ -23,14 +21,13 @@ export class EditorEntityItem extends EditorComponent {
     private _name: string,
     private _image: HTMLImageElement,
     private _color: string,
-    editor: GameEditor
+    editor: Editor
   ) {
     super(editor);
     this.image;
-    this.buildView();
   }
 
-  buildView(): EditorEntityItem {
+  createHtml(): HTMLElement {
     this.container = (
       <div class='item'>
         <div class='color' style={{ backgroundColor: this._color }}>
@@ -40,7 +37,7 @@ export class EditorEntityItem extends EditorComponent {
         {this.image}
       </div>
     ) as any as HTMLElement;
-    return this;
+    return this.container;
   }
 
   onClick(onClick: () => void): EditorEntityItem {

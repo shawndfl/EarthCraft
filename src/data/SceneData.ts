@@ -130,7 +130,7 @@ export class SceneData {
    * @param url
    */
   saveLocally(url: string): void {
-    const localStorage = window.localStorage.setItem(url, this.serialize());
+    window.localStorage.setItem(url, this.serialize());
   }
 
   /**
