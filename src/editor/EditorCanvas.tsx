@@ -92,7 +92,9 @@ export class EditorCanvas extends EditorComponent {
     if (this.isDragging) {
       this.mouseCurrent.x = e.x;
       this.mouseCurrent.y = e.y;
-      const delta = this.mouseCurrent.subtract(this.mouseLast);
+      const delta = this.mouseCurrent
+        .subtract(this.mouseLast)
+        .scale(1 / this._zoomScale);
       this.mouseLast.x = e.x;
       this.mouseLast.y = e.y;
 
@@ -160,29 +162,52 @@ export class EditorCanvas extends EditorComponent {
 
   draw(): void {
     const bounds = this._canvas.getBoundingClientRect();
-    this._canvas.width = bounds.width;
-    this._canvas.height = bounds.height;
+    this._canvas.width = (bounds.width * 1) / this._zoomScale;
+    this._canvas.height = (bounds.height * 1) / this._zoomScale;
 
     // clear background
     this.context.transform(1, 0, 0, 1, 0, 0);
     this.context.clearRect(0, 0, this._sceneSize.x, this._sceneSize.y);
 
     // clamp the panning
-    const zoomPercentage =
-      (this._zoomScale - this.minZoom) / (this.maxZoom - this.minZoom);
-    console.debug('zoom % ' + zoomPercentage + ' diff ' + this.zoomTarget.x);
     let x = this._pan.x;
     let y = this._pan.y;
+
     x = clamp(x, -this._sceneSize.x, 0);
-    y = clamp(y, 0, this._sceneSize.y);
+    y = clamp(y, -this._sceneSize.y * 0.5, this._sceneSize.y);
 
     // set the fill for the background
-    this.context.fillStyle = '#505050';
+    this.context.fillStyle = '#101010';
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // do the transform
-    this.context.transform(this._zoomScale, 0, 0, this._zoomScale, x, y);
+    const step = 64;
+    const cols = this._canvas.width / step;
+    const rows = this._canvas.height / step;
+    const ctx = this.context;
+    const xOffset = x % step;
+    const yOffset = y % step;
+    // vertical lines
+    for (let i = 0; i < cols; i++) {
+      ctx.beginPath();
+      ctx.strokeStyle = '#bdbdbdff';
+      ctx.moveTo(xOffset + i * step, this._canvas.height);
+      ctx.lineTo(xOffset + i * step, 0);
+      ctx.closePath();
+      ctx.stroke();
+    }
 
+    // horizontal lines
+    for (let i = 0; i < rows; i++) {
+      ctx.beginPath();
+      ctx.strokeStyle = '#bdbdbdff';
+      ctx.moveTo(0, yOffset + i * step);
+      ctx.lineTo(this._canvas.width, yOffset + i * step);
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    // do the transform
+    this.context.transform(1, 0, 0, 1, x, y);
     this.collisions.forEach((c) => {
       c.draw(this.context);
     });
