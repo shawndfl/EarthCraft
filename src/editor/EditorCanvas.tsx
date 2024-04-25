@@ -75,9 +75,18 @@ export class EditorCanvas extends EditorComponent {
     this.zoomTarget.x = e.x;
     this.zoomTarget.y = e.y;
     const delta = e.deltaY * 0.01;
+    this.zoom(delta);
+  }
+
+  /**
+   * zoom in or out of the canvas
+   * @param delta
+   */
+  zoom(delta: number): void {
     this._zoomScale += delta;
     this._zoomScale = clamp(this._zoomScale, this.minZoom, this.maxZoom);
     this.draw();
+    console.debug('zooming ' + delta + ' zoom: ' + this._zoomScale);
   }
 
   mouseDown(e: MouseEvent): void {

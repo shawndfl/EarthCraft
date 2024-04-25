@@ -2,7 +2,9 @@ import { Engine } from '../core/Engine';
 import '../css/editor.scss';
 import { SceneData } from '../data/SceneData';
 import { EditorCanvas } from './EditorCanvas';
+import { EditorEntityList } from './EditorEntityList';
 import { TileSelector } from './TileSelector';
+import { ZoomController } from './ZoomController';
 
 export class Editor {
   protected _container: HTMLElement;
@@ -10,6 +12,8 @@ export class Editor {
   protected _canvas: EditorCanvas;
   protected _sceneUrl: string;
   protected _sceneData: SceneData;
+  protected _entityList: EditorEntityList;
+  protected _zoomController: ZoomController;
 
   get sceneData(): SceneData {
     return this._sceneData;
@@ -30,6 +34,7 @@ export class Editor {
   constructor(protected _eng: Engine) {
     this._canvas = new EditorCanvas(this);
     this._tileSelector = new TileSelector(this);
+    this._zoomController = new ZoomController(this);
   }
 
   async initialize(root?: HTMLElement): Promise<void> {
@@ -43,6 +48,7 @@ export class Editor {
       <div class='editor'>
         {this._tileSelector.createHtml()}
         {this._canvas.createHtml()}
+        {this._zoomController.createHtml()}
       </div>
     ) as HTMLElement;
     root.append(this._container);
