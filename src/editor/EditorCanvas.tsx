@@ -162,8 +162,8 @@ export class EditorCanvas extends EditorComponent {
 
   draw(): void {
     const bounds = this._canvas.getBoundingClientRect();
-    this._canvas.width = (bounds.width * 1) / this._zoomScale;
-    this._canvas.height = (bounds.height * 1) / this._zoomScale;
+    this._canvas.width = bounds.width;
+    this._canvas.height = bounds.height;
 
     // clear background
     this.context.transform(1, 0, 0, 1, 0, 0);
@@ -180,12 +180,13 @@ export class EditorCanvas extends EditorComponent {
     this.context.fillStyle = '#101010';
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const step = 64;
-    const cols = this._canvas.width / step;
-    const rows = this._canvas.height / step;
+    const step = 64 * this._zoomScale;
+    const cols = Math.ceil(this._canvas.width / step) + 1;
+    const rows = Math.ceil(this._canvas.height / step) + 1;
     const ctx = this.context;
     const xOffset = x % step;
     const yOffset = y % step;
+
     // vertical lines
     for (let i = 0; i < cols; i++) {
       ctx.beginPath();
@@ -207,7 +208,8 @@ export class EditorCanvas extends EditorComponent {
     }
 
     // do the transform
-    this.context.transform(1, 0, 0, 1, x, y);
+    this.context.transform(this._zoomScale, 0, 0, this._zoomScale, x, y);
+
     this.collisions.forEach((c) => {
       c.draw(this.context);
     });
