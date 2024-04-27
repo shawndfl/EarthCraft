@@ -22,7 +22,7 @@ export class EditorEntityList extends EditorComponent {
     image: HTMLImageElement
   ): EditorEntityItem {
     const newItem = new EditorEntityItem(name, image, color, this.editor);
-    this.container.append(newItem.container);
+    this.container.append(newItem.createHtml());
     return newItem;
   }
 

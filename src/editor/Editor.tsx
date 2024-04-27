@@ -12,7 +12,6 @@ export class Editor {
   protected _canvas: EditorCanvas;
   protected _sceneUrl: string;
   protected _sceneData: SceneData;
-  protected _entityList: EditorEntityList;
   protected _zoomController: ZoomController;
 
   get sceneData(): SceneData {

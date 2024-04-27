@@ -6,8 +6,7 @@ import { Editor } from './Editor';
  * Item in the entity list
  */
 export class EditorEntityItem extends EditorComponent {
-  container: HTMLElement;
-  protected _onClick: () => void;
+  private _container: HTMLElement;
 
   public get name(): string {
     return this._name;
@@ -24,12 +23,11 @@ export class EditorEntityItem extends EditorComponent {
     editor: Editor
   ) {
     super(editor);
-    this.image;
   }
 
   createHtml(): HTMLElement {
-    this.container = (
-      <div class='item'>
+    this._container = (
+      <div class='item' onClick={this.onClick.bind(this)}>
         <div class='color' style={{ backgroundColor: this._color }}>
           &nbsp;
         </div>
@@ -37,12 +35,10 @@ export class EditorEntityItem extends EditorComponent {
         {this.image}
       </div>
     ) as any as HTMLElement;
-    return this.container;
+    return this._container;
   }
 
-  onClick(onClick: () => void): EditorEntityItem {
-    this._onClick = onClick.bind(this);
-    this.container.addEventListener('click', this._onClick);
+  protected onClick(): EditorEntityItem {
     return this;
   }
 }
